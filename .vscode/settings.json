@@ -1,0 +1,20 @@
+{
+  "files.exclude": {
+    ".dart_tool": true,
+    ".idea": true,
+    ".metadata": true,
+    ".packages": true,
+    "android": true,
+    "ios": true,
+    "memorization_app.iml": true,
+    "pubspec.lock": true,
+    "web": true,
+    "windows": true,
+    "analysis_options.yaml": true
+  },
+  "editor.formatOnSave": true,
+  "editor.rulers": [
+    80
+  ],
+  "dart.lineLength": 80
+}
