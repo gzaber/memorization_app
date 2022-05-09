@@ -17,8 +17,8 @@ class SettingsAdapter extends TypeAdapter<Settings> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Settings(
-      theme: fields[0] as Theme,
-      fontSize: fields[1] as FontSize,
+      appTheme: fields[0] as AppTheme,
+      appFontSize: fields[1] as AppFontSize,
     );
   }
 
@@ -27,9 +27,9 @@ class SettingsAdapter extends TypeAdapter<Settings> {
     writer
       ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.theme)
+      ..write(obj.appTheme)
       ..writeByte(1)
-      ..write(obj.fontSize);
+      ..write(obj.appFontSize);
   }
 
   @override
@@ -43,34 +43,73 @@ class SettingsAdapter extends TypeAdapter<Settings> {
           typeId == other.typeId;
 }
 
-class FontSizeAdapter extends TypeAdapter<FontSize> {
+class AppThemeAdapter extends TypeAdapter<AppTheme> {
   @override
   final int typeId = 1;
 
   @override
-  FontSize read(BinaryReader reader) {
+  AppTheme read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return FontSize.small;
+        return AppTheme.light;
       case 1:
-        return FontSize.medium;
-      case 2:
-        return FontSize.large;
+        return AppTheme.dark;
       default:
-        return FontSize.small;
+        return AppTheme.light;
     }
   }
 
   @override
-  void write(BinaryWriter writer, FontSize obj) {
+  void write(BinaryWriter writer, AppTheme obj) {
     switch (obj) {
-      case FontSize.small:
+      case AppTheme.light:
         writer.writeByte(0);
         break;
-      case FontSize.medium:
+      case AppTheme.dark:
         writer.writeByte(1);
         break;
-      case FontSize.large:
+    }
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AppThemeAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class AppFontSizeAdapter extends TypeAdapter<AppFontSize> {
+  @override
+  final int typeId = 2;
+
+  @override
+  AppFontSize read(BinaryReader reader) {
+    switch (reader.readByte()) {
+      case 0:
+        return AppFontSize.small;
+      case 1:
+        return AppFontSize.medium;
+      case 2:
+        return AppFontSize.large;
+      default:
+        return AppFontSize.small;
+    }
+  }
+
+  @override
+  void write(BinaryWriter writer, AppFontSize obj) {
+    switch (obj) {
+      case AppFontSize.small:
+        writer.writeByte(0);
+        break;
+      case AppFontSize.medium:
+        writer.writeByte(1);
+        break;
+      case AppFontSize.large:
         writer.writeByte(2);
         break;
     }
@@ -82,46 +121,7 @@ class FontSizeAdapter extends TypeAdapter<FontSize> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is FontSizeAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class ThemeAdapter extends TypeAdapter<Theme> {
-  @override
-  final int typeId = 2;
-
-  @override
-  Theme read(BinaryReader reader) {
-    switch (reader.readByte()) {
-      case 0:
-        return Theme.light;
-      case 1:
-        return Theme.dark;
-      default:
-        return Theme.light;
-    }
-  }
-
-  @override
-  void write(BinaryWriter writer, Theme obj) {
-    switch (obj) {
-      case Theme.light:
-        writer.writeByte(0);
-        break;
-      case Theme.dark:
-        writer.writeByte(1);
-        break;
-    }
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ThemeAdapter &&
+      other is AppFontSizeAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

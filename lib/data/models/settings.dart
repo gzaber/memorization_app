@@ -6,21 +6,21 @@ part 'settings.g.dart';
 @HiveType(typeId: 0)
 class Settings extends Equatable {
   @HiveField(0)
-  final Theme theme;
+  final AppTheme appTheme;
   @HiveField(1)
-  final FontSize fontSize;
+  final AppFontSize appFontSize;
 
   const Settings({
-    this.theme = Theme.light,
-    this.fontSize = FontSize.medium,
+    this.appTheme = AppTheme.light,
+    this.appFontSize = AppFontSize.medium,
   });
 
   @override
-  List<Object?> get props => [theme, fontSize];
+  List<Object?> get props => [appTheme, appFontSize];
 }
 
 @HiveType(typeId: 1)
-enum Theme {
+enum AppTheme {
   @HiveField(0)
   light,
   @HiveField(1)
@@ -28,7 +28,7 @@ enum Theme {
 }
 
 @HiveType(typeId: 2)
-enum FontSize {
+enum AppFontSize {
   @HiveField(0)
   small,
   @HiveField(1)
