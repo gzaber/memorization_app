@@ -24,6 +24,22 @@ class Deck extends Equatable {
     this.entryLayout = EntryLayout.standard,
   });
 
+  Deck copyWith({
+    String? name,
+    String? url,
+    int? color,
+    List<Entry>? entries,
+    EntryLayout? entryLayout,
+  }) {
+    return Deck(
+      name: name ?? this.name,
+      url: url ?? this.url,
+      color: color ?? this.color,
+      entries: entries ?? this.entries,
+      entryLayout: entryLayout ?? this.entryLayout,
+    );
+  }
+
   @override
   List<Object?> get props => [name, url, color, entries, entryLayout];
 }

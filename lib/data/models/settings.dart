@@ -15,16 +15,6 @@ class Settings extends Equatable {
     this.fontSize = FontSize.medium,
   });
 
-  Settings copyWith({
-    Theme? theme,
-    FontSize? fontSize,
-  }) {
-    return Settings(
-      theme: theme ?? this.theme,
-      fontSize: fontSize ?? this.fontSize,
-    );
-  }
-
   @override
   List<Object?> get props => [theme, fontSize];
 }
