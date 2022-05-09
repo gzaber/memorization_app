@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../models/deck.dart';
 import '../data_sources.dart';
@@ -6,7 +6,16 @@ import '../data_sources.dart';
 class HiveDeckDataSource extends DeckDataSource {
   final Box<Deck> _box;
 
-  HiveDeckDataSource({required Box<Deck> box}) : _box = box;
+  HiveDeckDataSource._(this._box);
+
+  static Future<HiveDeckDataSource> create() async {
+    await Hive.initFlutter();
+    Hive.registerAdapter(DeckAdapter());
+    Hive.registerAdapter(EntryAdapter());
+    Hive.registerAdapter(EntryLayoutAdapter());
+    final box = await Hive.openBox<Deck>('decks');
+    return HiveDeckDataSource._(box);
+  }
 
   @override
   Future<void> createDeck(Deck deck) async {

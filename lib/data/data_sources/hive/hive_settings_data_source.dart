@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../models/settings.dart';
 import '../data_sources.dart';
@@ -6,7 +6,16 @@ import '../data_sources.dart';
 class HiveSettingsDataSource extends SettingsDataSource {
   final Box<Settings> _box;
 
-  HiveSettingsDataSource({required Box<Settings> box}) : _box = box;
+  HiveSettingsDataSource._(this._box);
+
+  static Future<HiveSettingsDataSource> create() async {
+    await Hive.initFlutter();
+    Hive.registerAdapter(SettingsAdapter());
+    Hive.registerAdapter(ThemeAdapter());
+    Hive.registerAdapter(FontSizeAdapter());
+    final box = await Hive.openBox<Settings>('settings');
+    return HiveSettingsDataSource._(box);
+  }
 
   @override
   Future<void> createSettings() async {
