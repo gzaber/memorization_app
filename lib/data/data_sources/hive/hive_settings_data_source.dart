@@ -11,8 +11,8 @@ class HiveSettingsDataSource extends SettingsDataSource {
   static Future<HiveSettingsDataSource> create() async {
     await Hive.initFlutter();
     Hive.registerAdapter(SettingsAdapter());
-    Hive.registerAdapter(ThemeAdapter());
-    Hive.registerAdapter(FontSizeAdapter());
+    Hive.registerAdapter(AppThemeAdapter());
+    Hive.registerAdapter(AppFontSizeAdapter());
     final box = await Hive.openBox<Settings>('settings');
     return HiveSettingsDataSource._(box);
   }
