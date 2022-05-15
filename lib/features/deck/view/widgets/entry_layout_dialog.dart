@@ -5,6 +5,7 @@ import '../../deck.dart';
 
 class EntryLayoutDialog extends StatefulWidget {
   final DeckCubit deckCubit;
+
   const EntryLayoutDialog({
     Key? key,
     required this.deckCubit,

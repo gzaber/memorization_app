@@ -8,15 +8,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SettingsView();
-  }
-}
-
-class SettingsView extends StatelessWidget {
-  const SettingsView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
     AppTheme _appTheme = context.read<SettingsCubit>().state.appTheme;
     AppFontSize _appFontSize = context.read<SettingsCubit>().state.appFontSize;
 

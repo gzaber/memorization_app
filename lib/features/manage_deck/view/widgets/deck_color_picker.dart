@@ -23,6 +23,9 @@ class _DeckColorPickerState extends State<DeckColorPicker> {
       height: 80.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
+        controller: ScrollController(
+            initialScrollOffset:
+                colors.indexOf(widget.manageDeckCubit.state.deck.color) * 70.0),
         itemCount: colors.length,
         itemBuilder: (context, index) {
           return InkWell(

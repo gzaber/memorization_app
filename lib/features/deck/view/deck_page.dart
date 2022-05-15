@@ -16,9 +16,8 @@ class DeckPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DeckCubit(
-        context.read<DeckRepository>(),
-      )..readDeck(deckIndex),
+      create: (context) =>
+          DeckCubit(context.read<DeckRepository>())..readDeck(deckIndex),
       child: const DeckView(),
     );
   }
@@ -31,37 +30,35 @@ class DeckView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: BlocBuilder<DeckCubit, DeckState>(
-          builder: (context, state) {
-            return Text(context.read<DeckCubit>().state.deck.name);
-          },
-        ),
+        title: const _DeckTitle(),
         centerTitle: true,
         actions: [
           const SizedBox(width: 10.0),
           const _CircleAvatar(),
           DeckMenuButton(
-            onPreferences: () => showDialog(
-              context: context,
-              builder: (_) => EntryLayoutDialog(
-                deckCubit: context.read<DeckCubit>(),
-              ),
-            ),
-            onUpdate: () => Navigator.of(context)
-                .push(MaterialPageRoute(
-                    builder: (_) => ManageDeckPage(
-                          deckIndex: context.read<DeckCubit>().state.deckIndex,
-                        )))
-                .then((value) => context.read<DeckCubit>()
-                  ..readDeck(context.read<DeckCubit>().state.deckIndex!)),
-            onDelete: () => showDialog(
-                context: context,
-                builder: (_) => const DeleteDeckDialog()).then((value) {
-              if (value) {
-                context.read<DeckCubit>().deleteDeck();
-              }
-            }),
-          ),
+              onPreferences: () => showDialog(
+                    context: context,
+                    builder: (_) => EntryLayoutDialog(
+                      deckCubit: context.read<DeckCubit>(),
+                    ),
+                  ),
+              onUpdate: () => Navigator.of(context)
+                  .push(MaterialPageRoute(
+                      builder: (_) => ManageDeckPage(
+                            deckIndex:
+                                context.read<DeckCubit>().state.deckIndex,
+                          )))
+                  .then((value) => context.read<DeckCubit>()
+                    ..readDeck(context.read<DeckCubit>().state.deckIndex!)),
+              onDelete: () => showDialog(
+                      context: context,
+                      builder: (_) => DeleteDeckDialog(
+                            name: context.read<DeckCubit>().state.deck.name,
+                          )).then((value) {
+                    if (value) {
+                      context.read<DeckCubit>().deleteDeck();
+                    }
+                  })),
         ],
       ),
       body: SafeArea(
@@ -73,8 +70,7 @@ class DeckView extends StatelessWidget {
                 ..showSnackBar(SnackBar(content: Text(state.errorMessage)));
             }
             if (state.status == DeckStatus.deleteSuccess) {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => const HomePage()));
+              Navigator.of(context).pop();
             }
           },
           builder: (context, state) {
@@ -98,6 +94,21 @@ class DeckView extends StatelessWidget {
   }
 }
 
+class _DeckTitle extends StatelessWidget {
+  const _DeckTitle({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DeckCubit, DeckState>(
+      builder: (context, state) {
+        return Text(context.read<DeckCubit>().state.deck.name);
+      },
+    );
+  }
+}
+
 class _CircleAvatar extends StatelessWidget {
   const _CircleAvatar({
     Key? key,
@@ -109,8 +120,7 @@ class _CircleAvatar extends StatelessWidget {
       builder: (context, state) {
         return CircleAvatar(
           backgroundColor: Color(context.read<DeckCubit>().state.deck.color),
-          child:
-              Text(context.read<DeckCubit>().state.deck.name.substring(0, 3)),
+          child: const Icon(Icons.folder_open),
         );
       },
     );

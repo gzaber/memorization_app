@@ -12,7 +12,8 @@
     "windows": true,
     "analysis_options.yaml": true,
     ".flutter-plugins": true,
-    ".flutter-plugins-dependencies": true
+    ".flutter-plugins-dependencies": true,
+    "build": true
   },
   "editor.formatOnSave": true,
   "editor.rulers": [

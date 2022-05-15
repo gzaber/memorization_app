@@ -36,13 +36,10 @@ class HomeView extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () => Navigator.of(context)
-            .push(MaterialPageRoute(builder: (_) => const ManageDeckPage()))
-            .then(
-              (_) => context.read<HomeCubit>().readAllDecks(),
-            ),
-      ),
+          child: const Icon(Icons.add),
+          onPressed: () => Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => const ManageDeckPage()))
+              .then((_) => context.read<HomeCubit>().readAllDecks())),
       body: SafeArea(
         child: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
@@ -64,13 +61,13 @@ class HomeView extends StatelessWidget {
                 itemCount: state.decks.length,
                 itemBuilder: (context, index) {
                   return DeckCard(
-                    deck: state.decks[index],
-                    onTap: () => Navigator.of(context)
-                        .push(MaterialPageRoute(
-                          builder: (_) => DeckPage(deckIndex: index),
-                        ))
-                        .then((_) => context.read<HomeCubit>().readAllDecks()),
-                  );
+                      deck: state.decks[index],
+                      onTap: () => Navigator.of(context)
+                          .push(MaterialPageRoute(
+                            builder: (_) => DeckPage(deckIndex: index),
+                          ))
+                          .then(
+                              (_) => context.read<HomeCubit>().readAllDecks()));
                 },
               );
             }
