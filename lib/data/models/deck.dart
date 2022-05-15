@@ -21,7 +21,7 @@ class Deck extends Equatable {
     required this.url,
     this.color = 0xff334455,
     this.entries = const [],
-    this.entryLayout = EntryLayout.standard,
+    this.entryLayout = EntryLayout.row,
   });
 
   Deck copyWith({
@@ -60,7 +60,7 @@ class Entry {
 @HiveType(typeId: 2)
 enum EntryLayout {
   @HiveField(0)
-  standard,
+  row,
   @HiveField(1)
-  expanded,
+  expansionTile,
 }

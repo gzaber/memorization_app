@@ -97,21 +97,21 @@ class EntryLayoutAdapter extends TypeAdapter<EntryLayout> {
   EntryLayout read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return EntryLayout.standard;
+        return EntryLayout.row;
       case 1:
-        return EntryLayout.expanded;
+        return EntryLayout.expansionTile;
       default:
-        return EntryLayout.standard;
+        return EntryLayout.row;
     }
   }
 
   @override
   void write(BinaryWriter writer, EntryLayout obj) {
     switch (obj) {
-      case EntryLayout.standard:
+      case EntryLayout.row:
         writer.writeByte(0);
         break;
-      case EntryLayout.expanded:
+      case EntryLayout.expansionTile:
         writer.writeByte(1);
         break;
     }
