@@ -24,22 +24,17 @@ class EntryListView extends StatelessWidget {
                 fit: FlexFit.tight,
                 child: Text(
                   entries[index].title,
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(fontWeight: FontWeight.w500),
                 ),
               ),
               const SizedBox(width: 10.0),
               Flexible(
                 fit: FlexFit.tight,
-                child: Text(
-                  entries[index].description,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2!
-                      .copyWith(fontSize: 16.0),
-                ),
+                child: Text(entries[index].description,
+                    style: Theme.of(context).textTheme.bodyText2),
               ),
             ],
           ),

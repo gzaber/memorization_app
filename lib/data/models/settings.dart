@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 
 part 'settings.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 3)
 class Settings extends Equatable {
   @HiveField(0)
   final AppTheme appTheme;
@@ -12,14 +12,24 @@ class Settings extends Equatable {
 
   const Settings({
     this.appTheme = AppTheme.light,
-    this.appFontSize = AppFontSize.medium,
+    this.appFontSize = AppFontSize.standard,
   });
 
   @override
   List<Object?> get props => [appTheme, appFontSize];
+
+  Settings copyWith({
+    AppTheme? appTheme,
+    AppFontSize? appFontSize,
+  }) {
+    return Settings(
+      appTheme: appTheme ?? this.appTheme,
+      appFontSize: appFontSize ?? this.appFontSize,
+    );
+  }
 }
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 4)
 enum AppTheme {
   @HiveField(0)
   light,
@@ -27,12 +37,12 @@ enum AppTheme {
   dark,
 }
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 5)
 enum AppFontSize {
   @HiveField(0)
   small,
   @HiveField(1)
-  medium,
+  standard,
   @HiveField(2)
   large,
 }

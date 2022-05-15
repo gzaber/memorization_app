@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
 
-class CsvLinkTextFieldDialog extends StatelessWidget {
-  const CsvLinkTextFieldDialog({Key? key}) : super(key: key);
+import '../../state_management/state_management.dart';
+
+class CsvLinkTextFieldDialog extends StatefulWidget {
+  final ManageDeckCubit manageDeckCubit;
+
+  const CsvLinkTextFieldDialog({
+    Key? key,
+    required this.manageDeckCubit,
+  }) : super(key: key);
 
   @override
+  State<CsvLinkTextFieldDialog> createState() => _CsvLinkTextFieldDialogState();
+}
+
+class _CsvLinkTextFieldDialogState extends State<CsvLinkTextFieldDialog> {
+  @override
   Widget build(BuildContext context) {
+    String _url = widget.manageDeckCubit.state.deck.url;
+
     return TextField(
       readOnly: true,
+      controller:
+          TextEditingController(text: widget.manageDeckCubit.state.deck.url),
       decoration: const InputDecoration(
         icon: Icon(Icons.link),
         border: OutlineInputBorder(),
@@ -17,18 +33,34 @@ class CsvLinkTextFieldDialog extends StatelessWidget {
           title: const Text('Link to CSV document'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const [
-              TextField(),
+            children: [
+              TextField(
+                controller: TextEditingController(text: _url),
+                onChanged: (csvUrl) {
+                  _url = csvUrl;
+                },
+              ),
             ],
           ),
+          actionsAlignment: MainAxisAlignment.spaceBetween,
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context, 'Cancel'),
+              onPressed: () {
+                setState(() {
+                  Navigator.pop(context);
+                });
+              },
               child: const Text('Cancel'),
             ),
             TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
+              onPressed: () {
+                widget.manageDeckCubit.onUrlChanged(_url);
+                widget.manageDeckCubit.readCsv();
+                setState(() {
+                  Navigator.pop(context);
+                });
+              },
+              child: const Text('Download'),
             ),
           ],
         ),

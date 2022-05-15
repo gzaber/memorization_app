@@ -1,28 +1,40 @@
 part of 'deck_cubit.dart';
 
-abstract class DeckState extends Equatable {
-  const DeckState();
-
-  @override
-  List<Object> get props => [];
+enum DeckStatus {
+  initial,
+  loading,
+  loadSuccess,
+  deleteSuccess,
+  failure,
 }
 
-class DeckLoading extends DeckState {}
-
-class DeckReadSuccess extends DeckState {
+class DeckState extends Equatable {
+  final DeckStatus status;
+  final int? deckIndex;
   final Deck deck;
+  final String errorMessage;
 
-  const DeckReadSuccess(this.deck);
+  const DeckState({
+    this.status = DeckStatus.initial,
+    this.deckIndex,
+    this.deck = const Deck(name: '', url: ''),
+    this.errorMessage = '',
+  });
+
+  DeckState copyWith({
+    DeckStatus? status,
+    int? deckIndex,
+    Deck? deck,
+    String? errorMessage,
+  }) {
+    return DeckState(
+      status: status ?? this.status,
+      deckIndex: deckIndex ?? this.deckIndex,
+      deck: deck ?? this.deck,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
 
   @override
-  List<Object> get props => [deck];
-}
-
-class DeckFailure extends DeckState {
-  final String message;
-
-  const DeckFailure(this.message);
-
-  @override
-  List<Object> get props => [message];
+  List<Object?> get props => [status, deckIndex, deck, errorMessage];
 }

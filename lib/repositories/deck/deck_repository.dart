@@ -3,8 +3,7 @@ import '../../data/data.dart';
 class DeckRepository {
   final DeckDataSource _dataSource;
 
-  DeckRepository({required DeckDataSource dataSource})
-      : _dataSource = dataSource;
+  DeckRepository(this._dataSource);
 
   Future<void> createDeck(Deck deck) => _dataSource.createDeck(deck);
 

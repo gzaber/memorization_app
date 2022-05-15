@@ -1,10 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../data/data.dart';
 import '../../repositories/repositories.dart';
-
-part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<Settings> {
   final SettingsRepository _settingsRepository;
@@ -25,8 +22,19 @@ class SettingsCubit extends Cubit<Settings> {
     }
   }
 
-  void updateSettings(Settings settings) async {
+  void updateAppTheme(AppTheme appTheme) async {
     try {
+      final settings = state.copyWith(appTheme: appTheme);
+      await _settingsRepository.updateSettings(settings);
+      emit(settings);
+    } catch (e) {
+      emit(state);
+    }
+  }
+
+  void updateAppFontSize(AppFontSize appFontSize) async {
+    try {
+      final settings = state.copyWith(appFontSize: appFontSize);
       await _settingsRepository.updateSettings(settings);
       emit(settings);
     } catch (e) {

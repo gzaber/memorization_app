@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../data/data.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../repositories/repositories.dart';
+import '../../state_management/state_management.dart';
 import '../widgets/widgets.dart';
 import 'pages.dart';
 
@@ -9,7 +10,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HomeView();
+    return BlocProvider(
+      create: (context) =>
+          HomeCubit(context.read<DeckRepository>())..readAllDecks(),
+      child: const HomeView(),
+    );
   }
 }
 
@@ -37,97 +42,53 @@ class HomeView extends StatelessWidget {
         child: const Icon(Icons.add),
         onPressed: () {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (_) => const ManageDeckPage()));
+              .push(MaterialPageRoute(builder: (_) => const ManageDeckPage()))
+              .then(
+                (_) => context.read<HomeCubit>().readAllDecks(),
+              );
         },
       ),
       body: SafeArea(
-        child: ListView.builder(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
-          itemCount: decks.length,
-          itemBuilder: (context, index) {
-            return DeckCard(
-              deck: decks[index],
-              onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => const DeckPage()));
-              },
-            );
+        child: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            if (state is HomeLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state is HomeFailure) {
+              return Center(
+                child: Text(state.message),
+              );
+            }
+            if (state is HomeSuccess) {
+              if (state.decks.isEmpty) {
+                return const Center(
+                  child: Text('No decks'),
+                );
+              }
+              return ListView.builder(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
+                itemCount: state.decks.length,
+                itemBuilder: (context, index) {
+                  return DeckCard(
+                    deck: state.decks[index],
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(
+                            builder: (_) => DeckPage(deckIndex: index),
+                          ))
+                          .then(
+                            (_) => context.read<HomeCubit>().readAllDecks(),
+                          );
+                    },
+                  );
+                },
+              );
+            }
+            return const SizedBox();
           },
         ),
       ),
     );
   }
 }
-
-const List<Deck> decks = [
-  Deck(
-    name: 'deck1',
-    url: 'url',
-    color: 0xffff8a80,
-    entries: [],
-    entryLayout: EntryLayout.expanded,
-  ),
-  Deck(
-    name: 'deck2',
-    url: 'url',
-    color: 0xffff80ab,
-    entries: [],
-    entryLayout: EntryLayout.expanded,
-  ),
-  Deck(
-    name: 'deck3',
-    url: 'url',
-    color: 0xffea80fc,
-    entries: [],
-    entryLayout: EntryLayout.expanded,
-  ),
-  Deck(
-    name: 'deck4',
-    url: 'url',
-    color: 0xffb388ff,
-    entries: [],
-    entryLayout: EntryLayout.expanded,
-  ),
-  Deck(
-    name: 'deck5',
-    url: 'url',
-    color: 0xff8c9eff,
-    entries: [],
-    entryLayout: EntryLayout.expanded,
-  ),
-  Deck(
-    name: 'deck6',
-    url: 'url',
-    color: 0xff82b1ff,
-    entries: [],
-    entryLayout: EntryLayout.expanded,
-  ),
-  Deck(
-    name: 'deck7',
-    url: 'url',
-    color: 0xff80d8ff,
-    entries: [],
-    entryLayout: EntryLayout.expanded,
-  ),
-  Deck(
-    name: 'deck8',
-    url: 'url',
-    color: 0xff84ffff,
-    entries: [],
-    entryLayout: EntryLayout.expanded,
-  ),
-  Deck(
-    name: 'deck9',
-    url: 'url',
-    color: 0xffa7ffeb,
-    entries: [],
-    entryLayout: EntryLayout.expanded,
-  ),
-  Deck(
-    name: 'deck10',
-    url: 'url',
-    color: 0xffb9f6ca,
-    entries: [],
-    entryLayout: EntryLayout.expanded,
-  ),
-];

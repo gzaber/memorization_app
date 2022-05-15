@@ -9,7 +9,7 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   final DeckRepository _deckRepository;
 
-  HomeCubit(this._deckRepository) : super(HomeLoading());
+  HomeCubit(this._deckRepository) : super(HomeInitial());
 
   void readAllDecks() {
     emit(HomeLoading());
@@ -21,6 +21,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+// TODO: move to another cubit
   void deleteDeck(int index) async {
     try {
       await _deckRepository.deleteDeck(index);

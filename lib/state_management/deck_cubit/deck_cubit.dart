@@ -9,27 +9,50 @@ part 'deck_state.dart';
 class DeckCubit extends Cubit<DeckState> {
   final DeckRepository _deckRepository;
 
-  DeckCubit(this._deckRepository) : super(DeckLoading());
+  DeckCubit(this._deckRepository) : super(const DeckState());
 
   void readDeck(int index) {
-    emit(DeckLoading());
+    emit(state.copyWith(status: DeckStatus.loading));
     try {
       final deck = _deckRepository.readDeck(index);
-      emit(DeckReadSuccess(deck));
+      emit(
+        state.copyWith(
+            status: DeckStatus.loadSuccess, deckIndex: index, deck: deck),
+      );
     } catch (e) {
-      emit(DeckFailure(e.toString()));
+      emit(state.copyWith(
+        status: DeckStatus.failure,
+        errorMessage: e.toString(),
+      ));
     }
   }
 
-  void updateEntryLayout(int index, EntryLayout entryLayout) async {
-    emit(DeckLoading());
+  void onLayoutChanged(EntryLayout layout) async {
+    emit(state.copyWith(status: DeckStatus.loading));
     try {
-      final deck = _deckRepository.readDeck(index);
-      final updatedDeck = deck.copyWith(entryLayout: entryLayout);
-      await _deckRepository.updateDeck(index, updatedDeck);
-      readDeck(index);
+      final deck = state.deck.copyWith(entryLayout: layout);
+      await _deckRepository.updateDeck(state.deckIndex!, deck);
+      emit(state.copyWith(status: DeckStatus.loadSuccess, deck: deck));
     } catch (e) {
-      emit(DeckFailure(e.toString()));
+      emit(state.copyWith(
+        status: DeckStatus.failure,
+        errorMessage: e.toString(),
+      ));
+    }
+  }
+
+  void deleteDeck() async {
+    emit(state.copyWith(status: DeckStatus.loading));
+    try {
+      await _deckRepository.deleteDeck(state.deckIndex!);
+      emit(
+        state.copyWith(status: DeckStatus.deleteSuccess),
+      );
+    } catch (e) {
+      emit(state.copyWith(
+        status: DeckStatus.failure,
+        errorMessage: e.toString(),
+      ));
     }
   }
 }

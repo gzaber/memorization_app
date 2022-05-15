@@ -1,23 +1,41 @@
 part of 'manage_deck_cubit.dart';
 
-abstract class ManageDeckState extends Equatable {
-  const ManageDeckState();
-
-  @override
-  List<Object> get props => [];
+enum ManageDeckStatus {
+  initial,
+  csvLoading,
+  csvSuccess,
+  csvFailure,
+  deckLoading,
+  deckSuccess,
+  deckFailure,
 }
 
-class ManageDeckInitial extends ManageDeckState {}
+class ManageDeckState extends Equatable {
+  final ManageDeckStatus status;
+  final String errorMessage;
+  final int? deckIndex;
+  final Deck deck;
 
-class ManageDeckLoading extends ManageDeckState {}
+  const ManageDeckState({
+    this.status = ManageDeckStatus.initial,
+    this.errorMessage = '',
+    this.deckIndex,
+    this.deck = const Deck(name: '', url: '', color: 0xffff8a80),
+  });
 
-class ManageDeckSuccess extends ManageDeckState {}
-
-class ManageDeckFailure extends ManageDeckState {
-  final String message;
-
-  const ManageDeckFailure(this.message);
+  ManageDeckState copyWith({
+    ManageDeckStatus? status,
+    String? errorMessage,
+    int? deckIndex,
+    Deck? deck,
+  }) {
+    return ManageDeckState(
+        status: status ?? this.status,
+        errorMessage: errorMessage ?? this.errorMessage,
+        deckIndex: deckIndex ?? this.deckIndex,
+        deck: deck ?? this.deck);
+  }
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [status, errorMessage, deckIndex, deck];
 }

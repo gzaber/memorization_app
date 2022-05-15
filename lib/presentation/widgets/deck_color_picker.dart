@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../state_management/state_management.dart';
+
 class DeckColorPicker extends StatefulWidget {
+  final ManageDeckCubit manageDeckCubit;
+
   const DeckColorPicker({
     Key? key,
+    required this.manageDeckCubit,
   }) : super(key: key);
 
   @override
@@ -11,13 +16,6 @@ class DeckColorPicker extends StatefulWidget {
 
 class _DeckColorPickerState extends State<DeckColorPicker> {
   final double sideLength = 60.0;
-  late Color currentColor;
-
-  @override
-  void initState() {
-    currentColor = const Color(0xffff8a80);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +28,17 @@ class _DeckColorPickerState extends State<DeckColorPicker> {
           return InkWell(
             onTap: () {
               setState(() {
-                currentColor = Color(colors[index]);
+                widget.manageDeckCubit.onColorChanged(colors[index]);
               });
             },
             child: Container(
-              margin: currentColor == Color(colors[index])
+              margin: widget.manageDeckCubit.state.deck.color == colors[index]
                   ? const EdgeInsets.symmetric(horizontal: 10.0)
                   : const EdgeInsets.all(10.0),
-              width: currentColor == Color(colors[index])
+              width: widget.manageDeckCubit.state.deck.color == colors[index]
                   ? sideLength + 20.0
                   : sideLength,
-              height: currentColor == Color(colors[index])
+              height: widget.manageDeckCubit.state.deck.color == colors[index]
                   ? sideLength + 10.0
                   : sideLength,
               color: Color(

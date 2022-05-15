@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/data.dart';
+import '../../state_management/state_management.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -15,8 +17,8 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppTheme _appTheme = AppTheme.light;
-    AppFontSize _appFontSize = AppFontSize.medium;
+    AppTheme _appTheme = context.read<SettingsCubit>().state.appTheme;
+    AppFontSize _appFontSize = context.read<SettingsCubit>().state.appFontSize;
 
     return Scaffold(
       appBar: AppBar(
@@ -31,47 +33,51 @@ class SettingsView extends StatelessWidget {
             children: [
               Text(
                 'Theme',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2!
-                    .copyWith(fontSize: 22.0, fontWeight: FontWeight.w400),
+                style: Theme.of(context).textTheme.headline5,
               ),
               RadioListTile<AppTheme>(
                 title: const Text('light'),
                 value: AppTheme.light,
                 groupValue: _appTheme,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context.read<SettingsCubit>().updateAppTheme(value!);
+                },
               ),
               RadioListTile<AppTheme>(
                 title: const Text('dark'),
                 value: AppTheme.dark,
                 groupValue: _appTheme,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context.read<SettingsCubit>().updateAppTheme(value!);
+                },
               ),
               Text(
                 'Font size',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2!
-                    .copyWith(fontSize: 22.0, fontWeight: FontWeight.w400),
+                style: Theme.of(context).textTheme.headline5,
               ),
               RadioListTile<AppFontSize>(
                 title: const Text('small'),
                 value: AppFontSize.small,
                 groupValue: _appFontSize,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context.read<SettingsCubit>().updateAppFontSize(value!);
+                },
               ),
               RadioListTile<AppFontSize>(
-                title: const Text('medium'),
-                value: AppFontSize.medium,
+                title: const Text('standard'),
+                value: AppFontSize.standard,
                 groupValue: _appFontSize,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context.read<SettingsCubit>().updateAppFontSize(value!);
+                },
               ),
               RadioListTile<AppFontSize>(
                 title: const Text('large'),
                 value: AppFontSize.large,
                 groupValue: _appFontSize,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context.read<SettingsCubit>().updateAppFontSize(value!);
+                },
               ),
             ],
           ),

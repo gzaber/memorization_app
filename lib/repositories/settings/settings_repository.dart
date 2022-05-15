@@ -3,8 +3,7 @@ import '../../data/data.dart';
 class SettingsRepository {
   final SettingsDataSource _dataSource;
 
-  SettingsRepository({required SettingsDataSource dataSource})
-      : _dataSource = dataSource;
+  SettingsRepository(this._dataSource);
 
   Future<void> createSettings() => _dataSource.createSettings();
 

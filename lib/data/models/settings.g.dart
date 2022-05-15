@@ -8,7 +8,7 @@ part of 'settings.dart';
 
 class SettingsAdapter extends TypeAdapter<Settings> {
   @override
-  final int typeId = 0;
+  final int typeId = 3;
 
   @override
   Settings read(BinaryReader reader) {
@@ -45,7 +45,7 @@ class SettingsAdapter extends TypeAdapter<Settings> {
 
 class AppThemeAdapter extends TypeAdapter<AppTheme> {
   @override
-  final int typeId = 1;
+  final int typeId = 4;
 
   @override
   AppTheme read(BinaryReader reader) {
@@ -84,7 +84,7 @@ class AppThemeAdapter extends TypeAdapter<AppTheme> {
 
 class AppFontSizeAdapter extends TypeAdapter<AppFontSize> {
   @override
-  final int typeId = 2;
+  final int typeId = 5;
 
   @override
   AppFontSize read(BinaryReader reader) {
@@ -92,7 +92,7 @@ class AppFontSizeAdapter extends TypeAdapter<AppFontSize> {
       case 0:
         return AppFontSize.small;
       case 1:
-        return AppFontSize.medium;
+        return AppFontSize.standard;
       case 2:
         return AppFontSize.large;
       default:
@@ -106,7 +106,7 @@ class AppFontSizeAdapter extends TypeAdapter<AppFontSize> {
       case AppFontSize.small:
         writer.writeByte(0);
         break;
-      case AppFontSize.medium:
+      case AppFontSize.standard:
         writer.writeByte(1);
         break;
       case AppFontSize.large:

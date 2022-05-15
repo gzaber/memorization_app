@@ -23,14 +23,8 @@ class DeckCard extends StatelessWidget {
       child: ListTile(
         onTap: onTap,
         leading: const Icon(Icons.folder),
-        title: Text(
-          deck.name,
-          style: const TextStyle(fontSize: 20.0),
-        ),
-        subtitle: Text(
-          '${deck.entries.length} elements',
-          style: const TextStyle(fontSize: 18.0),
-        ),
+        title: Text(deck.name),
+        subtitle: Text('${deck.entries.length} elements'),
         tileColor: Color(deck.color),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
