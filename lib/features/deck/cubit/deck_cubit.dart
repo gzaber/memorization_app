@@ -27,7 +27,7 @@ class DeckCubit extends Cubit<DeckState> {
     }
   }
 
-  void onLayoutChanged(EntryLayout layout) async {
+  Future<void> onLayoutChanged(EntryLayout layout) async {
     emit(state.copyWith(status: DeckStatus.loading));
     try {
       final deck = state.deck.copyWith(entryLayout: layout);
@@ -41,7 +41,7 @@ class DeckCubit extends Cubit<DeckState> {
     }
   }
 
-  void deleteDeck() async {
+  Future<void> deleteDeck() async {
     emit(state.copyWith(status: DeckStatus.loading));
     try {
       await _deckRepository.deleteDeck(state.deckIndex!);

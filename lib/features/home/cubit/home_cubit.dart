@@ -9,7 +9,7 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   final DeckRepository _deckRepository;
 
-  HomeCubit(this._deckRepository) : super(HomeInitial());
+  HomeCubit(this._deckRepository) : super(HomeLoading());
 
   void readAllDecks() {
     emit(HomeLoading());

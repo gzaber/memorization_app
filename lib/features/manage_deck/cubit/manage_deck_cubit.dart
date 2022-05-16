@@ -37,7 +37,7 @@ class ManageDeckCubit extends Cubit<ManageDeckState> {
     if (index == null) {
       emit(state);
     } else {
-      emit(state.copyWith(status: ManageDeckStatus.deckLoading));
+      emit(state.copyWith(status: ManageDeckStatus.loading));
       try {
         final deck = _deckRepository.readDeck(index);
         emit(state.copyWith(
@@ -47,54 +47,54 @@ class ManageDeckCubit extends Cubit<ManageDeckState> {
         ));
       } catch (e) {
         emit(state.copyWith(
-          status: ManageDeckStatus.deckFailure,
+          status: ManageDeckStatus.failure,
           errorMessage: e.toString(),
         ));
       }
     }
   }
 
-  void createDeck() async {
+  Future<void> createDeck() async {
     if (state.deck.name.trim().isEmpty) {
       emit(state.copyWith(
-        status: ManageDeckStatus.deckFailure,
+        status: ManageDeckStatus.failure,
         errorMessage: 'Empty name',
       ));
       return;
     }
     emit(
-      state.copyWith(status: ManageDeckStatus.deckLoading),
+      state.copyWith(status: ManageDeckStatus.loading),
     );
     try {
       await _deckRepository.createDeck(state.deck);
-      emit(state.copyWith(status: ManageDeckStatus.deckSuccess));
+      emit(state.copyWith(status: ManageDeckStatus.success));
     } catch (e) {
       emit(state.copyWith(
-        status: ManageDeckStatus.deckFailure,
+        status: ManageDeckStatus.failure,
         errorMessage: e.toString(),
       ));
     }
   }
 
-  void updateDeck() async {
+  Future<void> updateDeck() async {
     if (state.deck.name.trim().isEmpty) {
       emit(state.copyWith(
-          status: ManageDeckStatus.deckFailure, errorMessage: 'Empty name'));
+          status: ManageDeckStatus.failure, errorMessage: 'Empty name'));
       return;
     }
-    emit(state.copyWith(status: ManageDeckStatus.deckLoading));
+    emit(state.copyWith(status: ManageDeckStatus.loading));
     try {
       await _deckRepository.updateDeck(state.deckIndex!, state.deck);
-      emit(state.copyWith(status: ManageDeckStatus.deckSuccess));
+      emit(state.copyWith(status: ManageDeckStatus.success));
     } catch (e) {
       emit(state.copyWith(
-        status: ManageDeckStatus.deckFailure,
+        status: ManageDeckStatus.failure,
         errorMessage: e.toString(),
       ));
     }
   }
 
-  void readCsv() async {
+  Future<void> readCsv() async {
     emit(state.copyWith(status: ManageDeckStatus.csvLoading));
     try {
       final entries = await _csvRepository.readCsv(state.deck.url);

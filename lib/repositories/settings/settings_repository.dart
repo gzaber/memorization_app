@@ -5,10 +5,10 @@ class SettingsRepository {
 
   SettingsRepository(this._dataSource);
 
-  Future<void> createSettings() => _dataSource.createSettings();
+  Future<void> createSettings() async => await _dataSource.createSettings();
 
-  Future<void> updateSettings(Settings settings) =>
-      _dataSource.updateSettings(settings);
+  Future<void> updateSettings(Settings settings) async =>
+      await _dataSource.updateSettings(settings);
 
   Settings? readSettings() => _dataSource.readSettings();
 }

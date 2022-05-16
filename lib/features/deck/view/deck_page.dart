@@ -54,9 +54,9 @@ class DeckView extends StatelessWidget {
                       context: context,
                       builder: (_) => DeleteDeckDialog(
                             name: context.read<DeckCubit>().state.deck.name,
-                          )).then((value) {
+                          )).then((value) async {
                     if (value) {
-                      context.read<DeckCubit>().deleteDeck();
+                      await context.read<DeckCubit>().deleteDeck();
                     }
                   })),
         ],
@@ -74,9 +74,6 @@ class DeckView extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            if (state.status == DeckStatus.loading) {
-              return const Center(child: CircularProgressIndicator());
-            }
             if (state.status == DeckStatus.loadSuccess) {
               if (state.deck.entries.isEmpty) {
                 return const Center(child: Text('No entries'));
@@ -85,7 +82,7 @@ class DeckView extends StatelessWidget {
                   ? EntryRowList(entries: state.deck.entries)
                   : EntryExpansionList(entries: state.deck.entries);
             }
-            return const SizedBox();
+            return const Center(child: CircularProgressIndicator());
           },
         ),
         //

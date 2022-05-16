@@ -5,12 +5,14 @@ class DeckRepository {
 
   DeckRepository(this._dataSource);
 
-  Future<void> createDeck(Deck deck) => _dataSource.createDeck(deck);
+  Future<void> createDeck(Deck deck) async =>
+      await _dataSource.createDeck(deck);
 
-  Future<void> updateDeck(int index, Deck deck) =>
-      _dataSource.updateDeck(index, deck);
+  Future<void> updateDeck(int index, Deck deck) async =>
+      await _dataSource.updateDeck(index, deck);
 
-  Future<void> deleteDeck(int index) => _dataSource.deleteDeck(index);
+  Future<void> deleteDeck(int index) async =>
+      await _dataSource.deleteDeck(index);
 
   Deck readDeck(int index) => _dataSource.readDeck(index);
 

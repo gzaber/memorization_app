@@ -43,9 +43,6 @@ class HomeView extends StatelessWidget {
       body: SafeArea(
         child: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
-            if (state is HomeLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
             if (state is HomeFailure) {
               return Center(
                 child: Text(state.message),
@@ -71,7 +68,7 @@ class HomeView extends StatelessWidget {
                 },
               );
             }
-            return const SizedBox();
+            return const Center(child: CircularProgressIndicator());
           },
         ),
       ),

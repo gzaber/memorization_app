@@ -8,7 +8,7 @@ class SettingsCubit extends Cubit<Settings> {
 
   SettingsCubit(this._settingsRepository) : super(const Settings());
 
-  void readSettings() async {
+  Future<void> readSettings() async {
     try {
       final settings = _settingsRepository.readSettings();
       if (settings != null) {
@@ -22,7 +22,7 @@ class SettingsCubit extends Cubit<Settings> {
     }
   }
 
-  void updateAppTheme(AppTheme appTheme) async {
+  Future<void> updateAppTheme(AppTheme appTheme) async {
     try {
       final settings = state.copyWith(appTheme: appTheme);
       await _settingsRepository.updateSettings(settings);
@@ -32,7 +32,7 @@ class SettingsCubit extends Cubit<Settings> {
     }
   }
 
-  void updateAppFontSize(AppFontSize appFontSize) async {
+  Future<void> updateAppFontSize(AppFontSize appFontSize) async {
     try {
       final settings = state.copyWith(appFontSize: appFontSize);
       await _settingsRepository.updateSettings(settings);

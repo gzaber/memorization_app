@@ -43,9 +43,9 @@ class _CsvLinkDialogState extends State<CsvLinkDialog> {
           child: const Text('Cancel'),
         ),
         TextButton(
-          onPressed: () {
+          onPressed: () async {
             widget.manageDeckCubit.onUrlChanged(_url);
-            widget.manageDeckCubit.readCsv();
+            await widget.manageDeckCubit.readCsv();
             setState(() {
               Navigator.pop(context);
             });

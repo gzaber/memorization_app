@@ -30,16 +30,16 @@ class SettingsPage extends StatelessWidget {
                 title: const Text('light'),
                 value: AppTheme.light,
                 groupValue: _appTheme,
-                onChanged: (value) {
-                  context.read<SettingsCubit>().updateAppTheme(value!);
+                onChanged: (value) async {
+                  await context.read<SettingsCubit>().updateAppTheme(value!);
                 },
               ),
               RadioListTile<AppTheme>(
                 title: const Text('dark'),
                 value: AppTheme.dark,
                 groupValue: _appTheme,
-                onChanged: (value) {
-                  context.read<SettingsCubit>().updateAppTheme(value!);
+                onChanged: (value) async {
+                  await context.read<SettingsCubit>().updateAppTheme(value!);
                 },
               ),
               Text(
@@ -50,24 +50,24 @@ class SettingsPage extends StatelessWidget {
                 title: const Text('small'),
                 value: AppFontSize.small,
                 groupValue: _appFontSize,
-                onChanged: (value) {
-                  context.read<SettingsCubit>().updateAppFontSize(value!);
+                onChanged: (value) async {
+                  await context.read<SettingsCubit>().updateAppFontSize(value!);
                 },
               ),
               RadioListTile<AppFontSize>(
                 title: const Text('standard'),
                 value: AppFontSize.standard,
                 groupValue: _appFontSize,
-                onChanged: (value) {
-                  context.read<SettingsCubit>().updateAppFontSize(value!);
+                onChanged: (value) async {
+                  await context.read<SettingsCubit>().updateAppFontSize(value!);
                 },
               ),
               RadioListTile<AppFontSize>(
                 title: const Text('large'),
                 value: AppFontSize.large,
                 groupValue: _appFontSize,
-                onChanged: (value) {
-                  context.read<SettingsCubit>().updateAppFontSize(value!);
+                onChanged: (value) async {
+                  await context.read<SettingsCubit>().updateAppFontSize(value!);
                 },
               ),
             ],

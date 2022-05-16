@@ -2,12 +2,12 @@ part of 'manage_deck_cubit.dart';
 
 enum ManageDeckStatus {
   initial,
+  loading,
+  success,
+  failure,
   csvLoading,
   csvSuccess,
   csvFailure,
-  deckLoading,
-  deckSuccess,
-  deckFailure,
 }
 
 class ManageDeckState extends Equatable {

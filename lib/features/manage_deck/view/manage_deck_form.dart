@@ -65,17 +65,17 @@ class _SaveDeckIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ManageDeckCubit, ManageDeckState>(
       listener: (context, state) {
-        if (state.status == ManageDeckStatus.deckFailure) {
+        if (state.status == ManageDeckStatus.failure) {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
             ..showSnackBar(SnackBar(content: Text(state.errorMessage)));
         }
-        if (state.status == ManageDeckStatus.deckSuccess) {
+        if (state.status == ManageDeckStatus.success) {
           Navigator.of(context).pop();
         }
       },
       builder: (context, state) {
-        if (state.status == ManageDeckStatus.deckLoading) {
+        if (state.status == ManageDeckStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(
               color: Colors.white,
@@ -84,11 +84,11 @@ class _SaveDeckIcon extends StatelessWidget {
         }
         return IconButton(
           icon: const Icon(Icons.check),
-          onPressed: () {
+          onPressed: () async {
             if (context.read<ManageDeckCubit>().state.deckIndex == null) {
-              context.read<ManageDeckCubit>().createDeck();
+              await context.read<ManageDeckCubit>().createDeck();
             } else {
-              context.read<ManageDeckCubit>().updateDeck();
+              await context.read<ManageDeckCubit>().updateDeck();
             }
           },
         );

@@ -1,7 +1,6 @@
 part of 'deck_cubit.dart';
 
 enum DeckStatus {
-  initial,
   loading,
   loadSuccess,
   deleteSuccess,
@@ -15,7 +14,7 @@ class DeckState extends Equatable {
   final String errorMessage;
 
   const DeckState({
-    this.status = DeckStatus.initial,
+    this.status = DeckStatus.loading,
     this.deckIndex,
     this.deck = const Deck(name: '', url: ''),
     this.errorMessage = '',
