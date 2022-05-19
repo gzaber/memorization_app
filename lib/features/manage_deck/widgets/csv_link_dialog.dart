@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../manage_deck.dart';
-
 class CsvLinkDialog extends StatefulWidget {
-  final ManageDeckCubit manageDeckCubit;
+  final String url;
 
   const CsvLinkDialog({
     Key? key,
-    required this.manageDeckCubit,
+    required this.url,
   }) : super(key: key);
 
   @override
@@ -17,7 +15,7 @@ class CsvLinkDialog extends StatefulWidget {
 class _CsvLinkDialogState extends State<CsvLinkDialog> {
   @override
   Widget build(BuildContext context) {
-    String _url = widget.manageDeckCubit.state.deck.url;
+    String _url = widget.url;
 
     return AlertDialog(
       title: const Text('Link to CSV document'),
@@ -35,21 +33,13 @@ class _CsvLinkDialogState extends State<CsvLinkDialog> {
       actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: <Widget>[
         TextButton(
-          onPressed: () {
-            setState(() {
-              Navigator.pop(context);
-            });
-          },
+          key: const Key('csvLinkDialog_cancel_textButton'),
+          onPressed: () => Navigator.pop(context, null),
           child: const Text('Cancel'),
         ),
         TextButton(
-          onPressed: () async {
-            widget.manageDeckCubit.onUrlChanged(_url);
-            await widget.manageDeckCubit.readCsv();
-            setState(() {
-              Navigator.pop(context);
-            });
-          },
+          key: const Key('csvLinkDialog_download_textButton'),
+          onPressed: () => Navigator.pop(context, _url),
           child: const Text('Download'),
         ),
       ],

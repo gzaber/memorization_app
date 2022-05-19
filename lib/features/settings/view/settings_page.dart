@@ -27,6 +27,7 @@ class SettingsPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline5,
               ),
               RadioListTile<AppTheme>(
+                key: const Key('settingsPage_lightTheme_radioListTile'),
                 title: const Text('light'),
                 value: AppTheme.light,
                 groupValue: _appTheme,
@@ -35,6 +36,7 @@ class SettingsPage extends StatelessWidget {
                 },
               ),
               RadioListTile<AppTheme>(
+                key: const Key('settingsPage_darkTheme_radioListTile'),
                 title: const Text('dark'),
                 value: AppTheme.dark,
                 groupValue: _appTheme,
@@ -47,6 +49,7 @@ class SettingsPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline5,
               ),
               RadioListTile<AppFontSize>(
+                key: const Key('settingsPage_smallFont_radioListTile'),
                 title: const Text('small'),
                 value: AppFontSize.small,
                 groupValue: _appFontSize,
@@ -55,6 +58,7 @@ class SettingsPage extends StatelessWidget {
                 },
               ),
               RadioListTile<AppFontSize>(
+                key: const Key('settingsPage_standardFont_radioListTile'),
                 title: const Text('standard'),
                 value: AppFontSize.standard,
                 groupValue: _appFontSize,
@@ -63,6 +67,7 @@ class SettingsPage extends StatelessWidget {
                 },
               ),
               RadioListTile<AppFontSize>(
+                key: const Key('settingsPage_largeFont_radioListTile'),
                 title: const Text('large'),
                 value: AppFontSize.large,
                 groupValue: _appFontSize,

@@ -19,7 +19,7 @@ class Deck extends Equatable {
   const Deck({
     required this.name,
     required this.url,
-    this.color = 0xff334455,
+    this.color = 0xffff8a80,
     this.entries = const [],
     this.entryLayout = EntryLayout.row,
   });

@@ -39,7 +39,10 @@ class ManageDeckForm extends StatelessWidget {
               ),
               const SizedBox(height: 10.0),
               DeckColorPicker(
-                manageDeckCubit: context.read<ManageDeckCubit>(),
+                color: context.read<ManageDeckCubit>().state.deck.color,
+                onColorChanged: (color) {
+                  context.read<ManageDeckCubit>().onColorChanged(color);
+                },
               ),
               const SizedBox(height: 20.0),
               Text(
@@ -48,6 +51,8 @@ class ManageDeckForm extends StatelessWidget {
               ),
               const SizedBox(height: 10.0),
               const _CsvLinkInput(),
+              const SizedBox(height: 10.0),
+              const _EntriesNumber(),
             ],
           ),
         ),
@@ -83,6 +88,7 @@ class _SaveDeckIcon extends StatelessWidget {
           );
         }
         return IconButton(
+          key: const Key('manageDeckPage_save_iconButton'),
           icon: const Icon(Icons.check),
           onPressed: () async {
             if (context.read<ManageDeckCubit>().state.deckIndex == null) {
@@ -105,6 +111,7 @@ class _DeckNameInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      key: const Key('manageDeckPage_name_textField'),
       controller: TextEditingController(
           text: context.read<ManageDeckCubit>().state.deck.name),
       decoration: const InputDecoration(
@@ -138,6 +145,7 @@ class _CsvLinkInput extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         return TextField(
+          key: const Key('manageDeckPage_url_textField'),
           readOnly: true,
           controller: TextEditingController(
               text: context.read<ManageDeckCubit>().state.deck.url),
@@ -147,8 +155,36 @@ class _CsvLinkInput extends StatelessWidget {
           ),
           onTap: () => showDialog(
             context: context,
-            builder: (_) =>
-                CsvLinkDialog(manageDeckCubit: context.read<ManageDeckCubit>()),
+            builder: (_) => CsvLinkDialog(
+                url: context.read<ManageDeckCubit>().state.deck.url),
+          ).then((value) async {
+            if (value != null) {
+              context.read<ManageDeckCubit>().onUrlChanged(value);
+              await context.read<ManageDeckCubit>().readCsv();
+            }
+          }),
+        );
+      },
+    );
+  }
+}
+
+class _EntriesNumber extends StatelessWidget {
+  const _EntriesNumber({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ManageDeckCubit, ManageDeckState>(
+      builder: (context, state) {
+        final entriesNumber =
+            context.read<ManageDeckCubit>().state.deck.entries.length;
+        return TextField(
+          enabled: false,
+          controller: TextEditingController(
+              text: entriesNumber == 1 ? '1 entry' : '$entriesNumber entries'),
+          decoration: const InputDecoration(
+            icon: Icon(Icons.list),
+            border: InputBorder.none,
           ),
         );
       },

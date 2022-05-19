@@ -14,7 +14,11 @@ class DeckRepository {
   Future<void> deleteDeck(int index) async =>
       await _dataSource.deleteDeck(index);
 
-  Deck readDeck(int index) => _dataSource.readDeck(index);
+  Deck readDeck(int index) {
+    final result = _dataSource.readDeck(index);
+    if (result == null) throw Exception('Deck not found');
+    return result;
+  }
 
   List<Deck> readAllDecks() => _dataSource.readAllDecks();
 }

@@ -8,12 +8,12 @@ class HiveDeckDataSource extends DeckDataSource {
 
   HiveDeckDataSource._(this._box);
 
-  static Future<HiveDeckDataSource> create() async {
-    await Hive.initFlutter();
-    Hive.registerAdapter(DeckAdapter());
-    Hive.registerAdapter(EntryAdapter());
-    Hive.registerAdapter(EntryLayoutAdapter());
-    final box = await Hive.openBox<Deck>('decks');
+  static Future<HiveDeckDataSource> create(HiveInterface hive) async {
+    await hive.initFlutter();
+    hive.registerAdapter(DeckAdapter());
+    hive.registerAdapter(EntryAdapter());
+    hive.registerAdapter(EntryLayoutAdapter());
+    final box = await hive.openBox<Deck>('decks');
     return HiveDeckDataSource._(box);
   }
 
@@ -33,8 +33,8 @@ class HiveDeckDataSource extends DeckDataSource {
   }
 
   @override
-  Deck readDeck(int index) {
-    return _box.values.elementAt(index);
+  Deck? readDeck(int index) {
+    return _box.getAt(index);
   }
 
   @override

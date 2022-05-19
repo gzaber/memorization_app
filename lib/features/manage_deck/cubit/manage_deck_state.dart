@@ -20,7 +20,7 @@ class ManageDeckState extends Equatable {
     this.status = ManageDeckStatus.initial,
     this.errorMessage = '',
     this.deckIndex,
-    this.deck = const Deck(name: '', url: '', color: 0xffff8a80),
+    this.deck = const Deck(name: '', url: ''),
   });
 
   ManageDeckState copyWith({

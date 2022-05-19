@@ -39,9 +39,14 @@ class DeckView extends StatelessWidget {
               onPreferences: () => showDialog(
                     context: context,
                     builder: (_) => EntryLayoutDialog(
-                      deckCubit: context.read<DeckCubit>(),
+                      entryLayout:
+                          context.read<DeckCubit>().state.deck.entryLayout,
                     ),
-                  ),
+                  ).then((value) {
+                    if (value != null) {
+                      context.read<DeckCubit>().onLayoutChanged(value);
+                    }
+                  }),
               onUpdate: () => Navigator.of(context)
                   .push(MaterialPageRoute(
                       builder: (_) => ManageDeckPage(

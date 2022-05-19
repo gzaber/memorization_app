@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../../data/data.dart';
-import '../../deck.dart';
 
 class EntryLayoutDialog extends StatefulWidget {
-  final DeckCubit deckCubit;
+  final EntryLayout entryLayout;
 
   const EntryLayoutDialog({
     Key? key,
-    required this.deckCubit,
+    required this.entryLayout,
   }) : super(key: key);
 
   @override
@@ -20,7 +19,7 @@ class _EntryLayoutDialogState extends State<EntryLayoutDialog> {
 
   @override
   void initState() {
-    _layout = widget.deckCubit.state.deck.entryLayout;
+    _layout = widget.entryLayout;
     super.initState();
   }
 
@@ -32,6 +31,7 @@ class _EntryLayoutDialogState extends State<EntryLayoutDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           RadioListTile<EntryLayout>(
+            key: const Key('entryLayoutDialog_row_radioListTile'),
             title: const Text('row'),
             value: EntryLayout.row,
             groupValue: _layout,
@@ -42,6 +42,7 @@ class _EntryLayoutDialogState extends State<EntryLayoutDialog> {
             },
           ),
           RadioListTile<EntryLayout>(
+            key: const Key('entryLayoutDialog_expansionTile_radioListTile'),
             title: const Text('expand / collapse'),
             value: EntryLayout.expansionTile,
             groupValue: _layout,
@@ -56,14 +57,13 @@ class _EntryLayoutDialogState extends State<EntryLayoutDialog> {
       actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: <Widget>[
         TextButton(
-          onPressed: () => Navigator.pop(context, 'Cancel'),
+          key: const Key('entryLayoutDialog_cancel_textButton'),
+          onPressed: () => Navigator.pop(context, null),
           child: const Text('Cancel'),
         ),
         TextButton(
-          onPressed: () {
-            widget.deckCubit.onLayoutChanged(_layout);
-            Navigator.pop(context, 'OK');
-          },
+          key: const Key('entryLayoutDialog_ok_textButton'),
+          onPressed: () => Navigator.pop(context, _layout),
           child: const Text('OK'),
         ),
       ],

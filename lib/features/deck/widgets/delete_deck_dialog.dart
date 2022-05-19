@@ -16,10 +16,12 @@ class DeleteDeckDialog extends StatelessWidget {
       actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: [
         TextButton(
+          key: const Key('deleteDeckDialog_cancel_textButton'),
           onPressed: () => Navigator.pop<bool>(context, false),
           child: const Text('Cancel'),
         ),
         TextButton(
+          key: const Key('deleteDeckDialog_ok_textButton'),
           onPressed: () => Navigator.pop<bool>(context, true),
           child: const Text('OK'),
         ),

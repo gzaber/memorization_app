@@ -15,22 +15,22 @@ class ManageDeckCubit extends Cubit<ManageDeckState> {
 
   void onNameChanged(String name) {
     final deck = state.deck.copyWith(name: name);
-    emit(state.copyWith(deck: deck));
+    emit(state.copyWith(deck: deck, status: ManageDeckStatus.initial));
   }
 
   void onUrlChanged(String csvUrl) {
     final deck = state.deck.copyWith(url: csvUrl);
-    emit(state.copyWith(deck: deck));
+    emit(state.copyWith(deck: deck, status: ManageDeckStatus.initial));
   }
 
   void onColorChanged(int color) {
     final deck = state.deck.copyWith(color: color);
-    emit(state.copyWith(deck: deck));
+    emit(state.copyWith(deck: deck, status: ManageDeckStatus.initial));
   }
 
   void onEntriesChanged(List<Entry> entries) {
     final deck = state.deck.copyWith(entries: entries);
-    emit(state.copyWith(deck: deck));
+    emit(state.copyWith(deck: deck, status: ManageDeckStatus.initial));
   }
 
   void readDeck({int? index}) {
@@ -55,6 +55,9 @@ class ManageDeckCubit extends Cubit<ManageDeckState> {
   }
 
   Future<void> createDeck() async {
+    emit(
+      state.copyWith(status: ManageDeckStatus.loading),
+    );
     if (state.deck.name.trim().isEmpty) {
       emit(state.copyWith(
         status: ManageDeckStatus.failure,
@@ -62,9 +65,7 @@ class ManageDeckCubit extends Cubit<ManageDeckState> {
       ));
       return;
     }
-    emit(
-      state.copyWith(status: ManageDeckStatus.loading),
-    );
+
     try {
       await _deckRepository.createDeck(state.deck);
       emit(state.copyWith(status: ManageDeckStatus.success));
@@ -77,12 +78,13 @@ class ManageDeckCubit extends Cubit<ManageDeckState> {
   }
 
   Future<void> updateDeck() async {
+    emit(state.copyWith(status: ManageDeckStatus.loading));
     if (state.deck.name.trim().isEmpty) {
       emit(state.copyWith(
           status: ManageDeckStatus.failure, errorMessage: 'Empty name'));
       return;
     }
-    emit(state.copyWith(status: ManageDeckStatus.loading));
+
     try {
       await _deckRepository.updateDeck(state.deckIndex!, state.deck);
       emit(state.copyWith(status: ManageDeckStatus.success));

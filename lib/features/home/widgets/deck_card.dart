@@ -32,7 +32,9 @@ class DeckCard extends StatelessWidget {
         ),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 5.0),
-          child: Text('${deck.entries.length} elements'),
+          child: Text(deck.entries.length == 1
+              ? '1 entry'
+              : '${deck.entries.length} entries'),
         ),
         minVerticalPadding: 16.0,
         shape: RoundedRectangleBorder(

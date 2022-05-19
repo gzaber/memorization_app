@@ -8,18 +8,18 @@ class HiveSettingsDataSource extends SettingsDataSource {
 
   HiveSettingsDataSource._(this._box);
 
-  static Future<HiveSettingsDataSource> create() async {
-    await Hive.initFlutter();
-    Hive.registerAdapter(SettingsAdapter());
-    Hive.registerAdapter(AppThemeAdapter());
-    Hive.registerAdapter(AppFontSizeAdapter());
-    final box = await Hive.openBox<Settings>('settings');
+  static Future<HiveSettingsDataSource> create(HiveInterface hive) async {
+    await hive.initFlutter();
+    hive.registerAdapter(SettingsAdapter());
+    hive.registerAdapter(AppThemeAdapter());
+    hive.registerAdapter(AppFontSizeAdapter());
+    final box = await hive.openBox<Settings>('settings');
     return HiveSettingsDataSource._(box);
   }
 
   @override
   Future<void> createSettings() async {
-    await _box.add(const Settings());
+    await _box.put(0, const Settings());
   }
 
   @override
@@ -29,10 +29,10 @@ class HiveSettingsDataSource extends SettingsDataSource {
 
   @override
   Settings? readSettings() {
-    if (_box.values.isEmpty) {
+    if (_box.isEmpty) {
       return null;
     } else {
-      return _box.values.first;
+      return _box.getAt(0);
     }
   }
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../manage_deck.dart';
-
 class DeckColorPicker extends StatefulWidget {
-  final ManageDeckCubit manageDeckCubit;
+  final int color;
+  final Function(int) onColorChanged;
 
   const DeckColorPicker({
     Key? key,
-    required this.manageDeckCubit,
+    required this.color,
+    required this.onColorChanged,
   }) : super(key: key);
 
   @override
@@ -15,7 +15,14 @@ class DeckColorPicker extends StatefulWidget {
 }
 
 class _DeckColorPickerState extends State<DeckColorPicker> {
+  late int _color;
   final double sideLength = 60.0;
+
+  @override
+  void initState() {
+    _color = widget.color;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,26 +31,22 @@ class _DeckColorPickerState extends State<DeckColorPicker> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         controller: ScrollController(
-            initialScrollOffset:
-                colors.indexOf(widget.manageDeckCubit.state.deck.color) * 70.0),
+            initialScrollOffset: colors.indexOf(_color) * 70.0),
         itemCount: colors.length,
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
               setState(() {
-                widget.manageDeckCubit.onColorChanged(colors[index]);
+                _color = colors[index];
+                widget.onColorChanged(_color);
               });
             },
             child: Container(
-              margin: widget.manageDeckCubit.state.deck.color == colors[index]
+              margin: _color == colors[index]
                   ? const EdgeInsets.symmetric(horizontal: 10.0)
                   : const EdgeInsets.all(10.0),
-              width: widget.manageDeckCubit.state.deck.color == colors[index]
-                  ? sideLength + 20.0
-                  : sideLength,
-              height: widget.manageDeckCubit.state.deck.color == colors[index]
-                  ? sideLength + 10.0
-                  : sideLength,
+              width: _color == colors[index] ? sideLength + 20.0 : sideLength,
+              height: _color == colors[index] ? sideLength + 10.0 : sideLength,
               color: Color(
                 colors[index],
               ),
