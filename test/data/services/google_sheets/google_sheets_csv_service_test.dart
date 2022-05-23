@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:memorization_app/data/data.dart';
 import 'package:mocktail/mocktail.dart';
@@ -37,6 +39,8 @@ void main() {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
         when(() => response.body).thenReturn(csvString);
+        when(() => response.bodyBytes)
+            .thenReturn(Uint8List.fromList(csvString.codeUnits));
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
         late List<Entry> result;
@@ -77,6 +81,8 @@ void main() {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
         when(() => response.body).thenReturn('aa,bb,cc');
+        when(() => response.bodyBytes)
+            .thenReturn(Uint8List.fromList('aa,bb,cc'.codeUnits));
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
         expect(

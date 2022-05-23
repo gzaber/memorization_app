@@ -9,7 +9,6 @@ class HiveDeckDataSource extends DeckDataSource {
   HiveDeckDataSource._(this._box);
 
   static Future<HiveDeckDataSource> create(HiveInterface hive) async {
-    await hive.initFlutter();
     hive.registerAdapter(DeckAdapter());
     hive.registerAdapter(EntryAdapter());
     hive.registerAdapter(EntryLayoutAdapter());
