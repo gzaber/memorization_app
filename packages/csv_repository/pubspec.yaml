@@ -1,0 +1,17 @@
+name: csv_repository
+description: A repository providing access to Google Sheets published as CSV files.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=2.17.5 <3.0.0"
+
+dependencies:
+  csv: ^5.0.1
+  http: ^0.13.5
+
+dev_dependencies:
+  coverage: ^1.5.0
+  lints: ^2.0.0
+  mocktail: ^0.3.0
+  test: ^1.16.0
