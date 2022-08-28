@@ -31,6 +31,7 @@ dev_dependencies:
   build_runner: ^2.1.10
   mocktail: ^0.3.0
   bloc_test: ^9.0.3
+  mockingjay: ^0.3.0
 
 flutter:
   uses-material-design: true
