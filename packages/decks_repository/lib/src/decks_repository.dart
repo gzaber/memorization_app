@@ -2,9 +2,9 @@ import 'package:decks_repository/decks_repository.dart';
 import 'package:hive/hive.dart';
 
 class DecksRepository {
-  final Box<Deck> _box;
-
   DecksRepository._(this._box);
+
+  final Box<Deck> _box;
 
   static Future<DecksRepository> init(HiveInterface hive) async {
     hive.registerAdapter(DeckAdapter());

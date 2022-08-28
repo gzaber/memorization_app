@@ -1,5 +1,5 @@
 name: decks_repository
-description: A repository which manages the decks domain, uses Hive database.
+description: A repository which manages decks domain, uses Hive database.
 version: 1.0.0
 publish_to: none
 
