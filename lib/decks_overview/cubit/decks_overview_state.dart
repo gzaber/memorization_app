@@ -1,10 +1,26 @@
 part of 'decks_overview_cubit.dart';
 
-abstract class DecksOverviewState extends Equatable {
-  const DecksOverviewState();
+enum DecksOverviewStatus { loading, success, failure }
+
+class DecksOverviewState extends Equatable {
+  const DecksOverviewState({
+    this.status = DecksOverviewStatus.loading,
+    this.decks = const [],
+  });
+
+  final DecksOverviewStatus status;
+  final List<Deck> decks;
 
   @override
-  List<Object> get props => [];
-}
+  List<Object> get props => [status, decks];
 
-class DecksOverviewInitial extends DecksOverviewState {}
+  DecksOverviewState copyWith({
+    DecksOverviewStatus? status,
+    List<Deck>? decks,
+  }) {
+    return DecksOverviewState(
+      status: status ?? this.status,
+      decks: decks ?? this.decks,
+    );
+  }
+}
