@@ -7,9 +7,12 @@ class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   static Route route() {
-    return MaterialPageRoute(builder: (context) {
-      return const SettingsPage();
-    });
+    return MaterialPageRoute(
+      builder: (context) {
+        return const SettingsPage();
+      },
+      settings: const RouteSettings(name: '/settings'),
+    );
   }
 
   @override

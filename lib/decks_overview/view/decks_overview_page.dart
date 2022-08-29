@@ -12,9 +12,9 @@ class DecksOverviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          DecksOverviewCubit(decksRepository: context.read<DecksRepository>())
-            ..readAllDecks(),
+      create: (context) => DecksOverviewCubit(
+        decksRepository: context.read<DecksRepository>(),
+      )..readAllDecks(),
       child: const DecksOverviewView(),
     );
   }
@@ -32,7 +32,8 @@ class DecksOverviewView extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () => Navigator.of(context).push(SettingsPage.route()),
+            onPressed: () =>
+                Navigator.of(context).push<void>(SettingsPage.route()),
           ),
         ],
       ),
@@ -40,7 +41,7 @@ class DecksOverviewView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () => Navigator.of(context)
-              .push(ManageDeckPage.route())
+              .push<void>(ManageDeckPage.route())
               .then((_) => context.read<DecksOverviewCubit>().readAllDecks())),
       body: SafeArea(
         child: BlocConsumer<DecksOverviewCubit, DecksOverviewState>(
@@ -71,7 +72,7 @@ class DecksOverviewView extends StatelessWidget {
                   return DeckCard(
                     deck: state.decks[index],
                     onTap: () => Navigator.of(context)
-                        .push(DeckPage.route(deckIndex: index))
+                        .push<void>(DeckPage.route(deckIndex: index))
                         .then((_) =>
                             context.read<DecksOverviewCubit>().readAllDecks()),
                   );

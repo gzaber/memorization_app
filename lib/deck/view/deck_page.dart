@@ -6,6 +6,7 @@ class DeckPage extends StatelessWidget {
   static Route route({required int deckIndex}) {
     return MaterialPageRoute(
       builder: (context) => const DeckPage(),
+      settings: const RouteSettings(name: '/deck'),
     );
   }
 
