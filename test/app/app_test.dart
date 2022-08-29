@@ -14,11 +14,15 @@ import 'package:settings_repository/settings_repository.dart';
 extension PumpView on WidgetTester {
   Future<void> pumpAppView({
     required SettingsCubit settingsCubit,
+    required DecksRepository decksRepository,
   }) {
     return pumpWidget(
-      BlocProvider.value(
-        value: settingsCubit,
-        child: const AppView(),
+      RepositoryProvider.value(
+        value: decksRepository,
+        child: BlocProvider.value(
+          value: settingsCubit,
+          child: const AppView(),
+        ),
       ),
     );
   }
@@ -46,6 +50,7 @@ void main() {
 
     testWidgets('renders AppView', (tester) async {
       when(() => settingsRepository.read()).thenAnswer((_) => const Settings());
+      when(() => decksRepository.readAll()).thenAnswer((_) => []);
 
       await tester.pumpWidget(
         App(
@@ -61,15 +66,20 @@ void main() {
 
   group('AppView', () {
     late SettingsCubit settingsCubit;
+    late DecksRepository decksRepository;
 
     setUp(() {
       settingsCubit = MockSettingsCubit();
+      decksRepository = MockDecksRepository();
+
+      when(() => decksRepository.readAll()).thenAnswer((_) => []);
     });
 
     testWidgets('renders DecksOverviewPage', (tester) async {
       when(() => settingsCubit.state).thenReturn(const Settings());
 
-      await tester.pumpAppView(settingsCubit: settingsCubit);
+      await tester.pumpAppView(
+          settingsCubit: settingsCubit, decksRepository: decksRepository);
 
       expect(find.byType(DecksOverviewPage), findsOneWidget);
     });
@@ -82,7 +92,9 @@ void main() {
         ),
       );
 
-      await tester.pumpAppView(settingsCubit: settingsCubit);
+      await tester.pumpAppView(
+          settingsCubit: settingsCubit, decksRepository: decksRepository);
+
       final materialApp = tester.widget<MaterialApp>(find.byType(MaterialApp));
 
       expect(
