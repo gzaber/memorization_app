@@ -24,14 +24,24 @@ class DeckPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const _DeckTitle(),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text(
+            context.read<DeckCubit>().state.deck.name), //const _DeckTitle(),
         centerTitle: true,
         actions: [
           const SizedBox(width: 10.0),
-          const _CircleAvatar(),
+          //const _CircleAvatar(),
+          CircleAvatar(
+            backgroundColor: Color(context.read<DeckCubit>().state.deck.color),
+            child: const Icon(Icons.folder_open),
+          ),
           DeckMenuButton(
               onEntryLayout: () => showDialog(
                     context: context,
+                    useRootNavigator: false,
                     builder: (_) => EntryLayoutDialog(
                       entryLayout:
                           context.read<DeckCubit>().state.deck.entryLayout,
@@ -42,13 +52,14 @@ class DeckPage extends StatelessWidget {
                     }
                   }),
               onUpdate: () => Navigator.of(context)
-                  .push(ManageDeckPage.route(
+                  .push<void>(ManageDeckPage.route(
                     deckIndex: context.read<DeckCubit>().state.deckIndex,
                   ))
-                  .then((value) => context.read<DeckCubit>()
+                  .then((_) => context.read<DeckCubit>()
                     ..readDeck(context.read<DeckCubit>().state.deckIndex)),
               onDelete: () => showDialog(
                       context: context,
+                      useRootNavigator: false,
                       builder: (_) => DeleteDeckDialog(
                             name: context.read<DeckCubit>().state.deck.name,
                           )).then((value) async {
@@ -92,35 +103,31 @@ class DeckPage extends StatelessWidget {
   }
 }
 
-class _DeckTitle extends StatelessWidget {
-  const _DeckTitle({
-    Key? key,
-  }) : super(key: key);
+// class _DeckTitle extends StatelessWidget {
+//   const _DeckTitle({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<DeckCubit, DeckState>(
-      builder: (context, state) {
-        return Text(context.read<DeckCubit>().state.deck.name);
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<DeckCubit, DeckState>(
+//       builder: (context, state) {
+//         return Text(context.read<DeckCubit>().state.deck.name);
+//       },
+//     );
+//   }
+// }
 
-class _CircleAvatar extends StatelessWidget {
-  const _CircleAvatar({
-    Key? key,
-  }) : super(key: key);
+// class _CircleAvatar extends StatelessWidget {
+//   const _CircleAvatar({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<DeckCubit, DeckState>(
-      builder: (context, state) {
-        return CircleAvatar(
-          backgroundColor: Color(context.read<DeckCubit>().state.deck.color),
-          child: const Icon(Icons.folder_open),
-        );
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<DeckCubit, DeckState>(
+//       builder: (context, state) {
+//         return CircleAvatar(
+//           backgroundColor: Color(context.read<DeckCubit>().state.deck.color),
+//           child: const Icon(Icons.folder_open),
+//         );
+//       },
+//     );
+//   }
+// }
