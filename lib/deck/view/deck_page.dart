@@ -28,16 +28,11 @@ class DeckPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text(
-            context.read<DeckCubit>().state.deck.name), //const _DeckTitle(),
+        title: const _DeckTitle(),
         centerTitle: true,
         actions: [
           const SizedBox(width: 10.0),
-          //const _CircleAvatar(),
-          CircleAvatar(
-            backgroundColor: Color(context.read<DeckCubit>().state.deck.color),
-            child: const Icon(Icons.folder_open),
-          ),
+          const _CircleAvatar(),
           DeckMenuButton(
               onEntryLayout: () => showDialog(
                     context: context,
@@ -103,31 +98,31 @@ class DeckPage extends StatelessWidget {
   }
 }
 
-// class _DeckTitle extends StatelessWidget {
-//   const _DeckTitle({Key? key}) : super(key: key);
+class _DeckTitle extends StatelessWidget {
+  const _DeckTitle({Key? key}) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<DeckCubit, DeckState>(
-//       builder: (context, state) {
-//         return Text(context.read<DeckCubit>().state.deck.name);
-//       },
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DeckCubit, DeckState>(
+      builder: (context, state) {
+        return Text(context.read<DeckCubit>().state.deck.name);
+      },
+    );
+  }
+}
 
-// class _CircleAvatar extends StatelessWidget {
-//   const _CircleAvatar({Key? key}) : super(key: key);
+class _CircleAvatar extends StatelessWidget {
+  const _CircleAvatar({Key? key}) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<DeckCubit, DeckState>(
-//       builder: (context, state) {
-//         return CircleAvatar(
-//           backgroundColor: Color(context.read<DeckCubit>().state.deck.color),
-//           child: const Icon(Icons.folder_open),
-//         );
-//       },
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DeckCubit, DeckState>(
+      builder: (context, state) {
+        return CircleAvatar(
+          backgroundColor: Color(context.read<DeckCubit>().state.deck.color),
+          child: const Icon(Icons.folder_open),
+        );
+      },
+    );
+  }
+}
