@@ -16,7 +16,7 @@ class DeckColorPicker extends StatefulWidget {
 
 class _DeckColorPickerState extends State<DeckColorPicker> {
   late int _color;
-  final double sideLength = 60.0;
+  final double sideLength = 60;
 
   @override
   void initState() {
@@ -27,11 +27,11 @@ class _DeckColorPickerState extends State<DeckColorPicker> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 80.0,
+      height: 80,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        controller: ScrollController(
-            initialScrollOffset: colors.indexOf(_color) * 70.0),
+        controller:
+            ScrollController(initialScrollOffset: colors.indexOf(_color) * 70),
         itemCount: colors.length,
         itemBuilder: (context, index) {
           return InkWell(
@@ -43,10 +43,10 @@ class _DeckColorPickerState extends State<DeckColorPicker> {
             },
             child: Container(
               margin: _color == colors[index]
-                  ? const EdgeInsets.symmetric(horizontal: 10.0)
-                  : const EdgeInsets.all(10.0),
-              width: _color == colors[index] ? sideLength + 20.0 : sideLength,
-              height: _color == colors[index] ? sideLength + 10.0 : sideLength,
+                  ? const EdgeInsets.symmetric(horizontal: 10)
+                  : const EdgeInsets.all(10),
+              width: _color == colors[index] ? sideLength + 20 : sideLength,
+              height: _color == colors[index] ? sideLength + 10 : sideLength,
               color: Color(
                 colors[index],
               ),

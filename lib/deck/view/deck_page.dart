@@ -31,7 +31,7 @@ class DeckPage extends StatelessWidget {
         title: const _DeckTitle(),
         centerTitle: true,
         actions: [
-          const SizedBox(width: 10.0),
+          const SizedBox(width: 10),
           const _CircleAvatar(),
           DeckMenuButton(
               onEntryLayout: () => showDialog(

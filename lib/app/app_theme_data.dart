@@ -13,40 +13,40 @@ class AppThemeData {
       textTheme: TextTheme(
         headline5: baseTheme.textTheme.headline5!.copyWith(
           fontSize: appFontSize == AppFontSize.small
-              ? 22.0
+              ? 22
               : appFontSize == AppFontSize.medium
-                  ? 24.0
-                  : 28.0,
+                  ? 24
+                  : 28,
           fontWeight: FontWeight.w300,
         ),
         headline6: baseTheme.textTheme.headline6!.copyWith(
           fontSize: appFontSize == AppFontSize.small
-              ? 18.0
+              ? 18
               : appFontSize == AppFontSize.medium
-                  ? 20.0
-                  : 24.0,
+                  ? 20
+                  : 24,
           fontWeight: FontWeight.w400,
         ),
         button: baseTheme.textTheme.button!.copyWith(
           fontSize: appFontSize == AppFontSize.small
-              ? 12.0
+              ? 12
               : appFontSize == AppFontSize.medium
-                  ? 14.0
-                  : 18.0,
+                  ? 14
+                  : 18,
         ),
         subtitle1: baseTheme.textTheme.subtitle1!.copyWith(
           fontSize: appFontSize == AppFontSize.small
-              ? 14.0
+              ? 14
               : appFontSize == AppFontSize.medium
-                  ? 16.0
-                  : 20.0,
+                  ? 16
+                  : 20,
         ),
         bodyText2: baseTheme.textTheme.bodyText2!.copyWith(
           fontSize: appFontSize == AppFontSize.small
-              ? 12.0
+              ? 12
               : appFontSize == AppFontSize.medium
-                  ? 14.0
-                  : 18.0,
+                  ? 14
+                  : 18,
         ),
       ),
     );

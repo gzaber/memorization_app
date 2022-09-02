@@ -66,7 +66,7 @@ class DecksOverviewView extends StatelessWidget {
               }
               return ListView.builder(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                 itemCount: state.decks.length,
                 itemBuilder: (context, index) {
                   return DeckCard(

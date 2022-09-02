@@ -8,33 +8,33 @@ class ManageDeckForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Deck name', style: Theme.of(context).textTheme.headline5),
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 10),
           const _DeckNameInput(),
-          const SizedBox(height: 20.0),
+          const SizedBox(height: 20),
           Text(
             'Color',
             style: Theme.of(context).textTheme.headline5,
           ),
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 10),
           DeckColorPicker(
             color: context.read<ManageDeckCubit>().state.deck.color,
             onColorChanged: (color) {
               context.read<ManageDeckCubit>().onColorChanged(color);
             },
           ),
-          const SizedBox(height: 20.0),
+          const SizedBox(height: 20),
           Text(
             'CSV document link',
             style: Theme.of(context).textTheme.headline5,
           ),
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 10),
           const _CsvLinkInput(),
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 10),
           const _EntriesNumber(),
         ],
       ),
