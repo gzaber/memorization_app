@@ -228,5 +228,24 @@ void main() {
         findsOneWidget,
       );
     });
+
+    testWidgets('shows SnackBar when name TextField is empty', (tester) async {
+      when(() => manageDeckCubit.state)
+          .thenReturn(const ManageDeckState(status: ManageDeckStatus.loading));
+      whenListen(
+          manageDeckCubit,
+          Stream.fromIterable(
+              [const ManageDeckState(status: ManageDeckStatus.emptyName)]));
+
+      await tester.pumpManageDeckPage(manageDeckCubit: manageDeckCubit);
+      await tester.pump();
+
+      expect(
+        find.descendant(
+            of: find.byType(SnackBar),
+            matching: find.text('Name cannot be empty')),
+        findsOneWidget,
+      );
+    });
   });
 }

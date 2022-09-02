@@ -124,8 +124,8 @@ void main() {
       const entry1 = Entry(title: 'title1', content: 'content1');
       const entry2 = Entry(title: 'title2', content: 'content2');
       const deck = Deck(name: 'name', entries: [entry1, entry2]);
-      when(() => manageDeckCubit.state).thenReturn(const ManageDeckState(
-          status: ManageDeckStatus.csvSuccess, deck: deck));
+      when(() => manageDeckCubit.state).thenReturn(
+          const ManageDeckState(status: ManageDeckStatus.initial, deck: deck));
 
       await tester.pumpManageDeckForm(manageDeckCubit: manageDeckCubit);
       final textField = tester.widget<TextField>(

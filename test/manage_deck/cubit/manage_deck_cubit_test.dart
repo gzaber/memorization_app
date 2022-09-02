@@ -158,8 +158,10 @@ void main() {
         'emits state with empty name status when name is empty',
         build: () => manageDeckCubit,
         act: (cubit) => cubit.createDeck(),
-        expect: () =>
-            [const ManageDeckState(status: ManageDeckStatus.emptyName)],
+        expect: () => [
+          const ManageDeckState(status: ManageDeckStatus.emptyName),
+          const ManageDeckState(status: ManageDeckStatus.initial),
+        ],
       );
 
       blocTest<ManageDeckCubit, ManageDeckState>(
@@ -208,8 +210,10 @@ void main() {
         'emits state with empty name status when name is empty',
         build: () => manageDeckCubit,
         act: (cubit) => cubit.updateDeck(),
-        expect: () =>
-            [const ManageDeckState(status: ManageDeckStatus.emptyName)],
+        expect: () => [
+          const ManageDeckState(status: ManageDeckStatus.emptyName),
+          const ManageDeckState(status: ManageDeckStatus.initial),
+        ],
       );
 
       blocTest<ManageDeckCubit, ManageDeckState>(
@@ -263,7 +267,7 @@ void main() {
       ];
 
       blocTest<ManageDeckCubit, ManageDeckState>(
-        'emits state with csv success status and fetched entries',
+        'emits state with initial status and fetched entries',
         setUp: () {
           when(() => csvRepository.fetchData(any()))
               .thenAnswer((_) async => csvData);
@@ -275,7 +279,7 @@ void main() {
           const ManageDeckState(
               status: ManageDeckStatus.csvLoading, deckIndex: 0, deck: deck),
           ManageDeckState(
-              status: ManageDeckStatus.csvSuccess,
+              status: ManageDeckStatus.initial,
               deckIndex: 0,
               deck: deck.copyWith(entries: [entry1, entry2])),
         ],
