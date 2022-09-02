@@ -16,7 +16,7 @@ class DecksOverviewCubit extends Cubit<DecksOverviewState> {
     try {
       final decks = _decksRepository.readAll();
       emit(state.copyWith(status: DecksOverviewStatus.success, decks: decks));
-    } on Exception {
+    } catch (e) {
       emit(state.copyWith(status: DecksOverviewStatus.failure));
     }
   }

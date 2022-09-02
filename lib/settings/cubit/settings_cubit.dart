@@ -15,7 +15,7 @@ class SettingsCubit extends Cubit<Settings> {
         await _settingsRepository.create();
         emit(state);
       }
-    } on Exception {
+    } catch (e) {
       emit(state);
     }
   }
@@ -25,7 +25,7 @@ class SettingsCubit extends Cubit<Settings> {
       final settings = state.copyWith(appTheme: appTheme);
       await _settingsRepository.update(settings);
       emit(settings);
-    } on Exception {
+    } catch (e) {
       emit(state);
     }
   }
@@ -35,7 +35,7 @@ class SettingsCubit extends Cubit<Settings> {
       final settings = state.copyWith(appFontSize: appFontSize);
       await _settingsRepository.update(settings);
       emit(settings);
-    } on Exception {
+    } catch (e) {
       emit(state);
     }
   }
