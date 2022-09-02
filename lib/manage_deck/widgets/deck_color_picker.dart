@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class DeckColorPicker extends StatefulWidget {
-  final int color;
-  final Function(int) onColorChanged;
-
   const DeckColorPicker({
     Key? key,
     required this.color,
     required this.onColorChanged,
   }) : super(key: key);
+
+  final int color;
+  final Function(int) onColorChanged;
 
   @override
   State<DeckColorPicker> createState() => _DeckColorPickerState();

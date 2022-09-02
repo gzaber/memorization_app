@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CsvLinkDialog extends StatefulWidget {
-  final String url;
-
   const CsvLinkDialog({
     Key? key,
     required this.url,
   }) : super(key: key);
+
+  final String url;
 
   @override
   State<CsvLinkDialog> createState() => _CsvLinkDialogState();
