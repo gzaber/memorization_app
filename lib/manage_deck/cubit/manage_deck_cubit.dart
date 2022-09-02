@@ -48,7 +48,7 @@ class ManageDeckCubit extends Cubit<ManageDeckState> {
           deckIndex: index,
           deck: deck,
         ));
-      } on Exception {
+      } catch (e) {
         emit(state.copyWith(status: ManageDeckStatus.failure));
       }
     }
@@ -57,13 +57,14 @@ class ManageDeckCubit extends Cubit<ManageDeckState> {
   Future<void> createDeck() async {
     if (state.deck.name.trim().isEmpty) {
       emit(state.copyWith(status: ManageDeckStatus.emptyName));
+      emit(state.copyWith(status: ManageDeckStatus.initial));
       return;
     }
     emit(state.copyWith(status: ManageDeckStatus.loading));
     try {
       await _decksRepository.create(state.deck);
       emit(state.copyWith(status: ManageDeckStatus.saveSuccess));
-    } on Exception {
+    } catch (e) {
       emit(state.copyWith(status: ManageDeckStatus.failure));
     }
   }
@@ -71,13 +72,14 @@ class ManageDeckCubit extends Cubit<ManageDeckState> {
   Future<void> updateDeck() async {
     if (state.deck.name.trim().isEmpty) {
       emit(state.copyWith(status: ManageDeckStatus.emptyName));
+      emit(state.copyWith(status: ManageDeckStatus.initial));
       return;
     }
     emit(state.copyWith(status: ManageDeckStatus.loading));
     try {
       await _decksRepository.update(state.deckIndex!, state.deck);
       emit(state.copyWith(status: ManageDeckStatus.saveSuccess));
-    } on Exception {
+    } catch (e) {
       emit(state.copyWith(status: ManageDeckStatus.failure));
     }
   }
@@ -91,9 +93,9 @@ class ManageDeckCubit extends Cubit<ManageDeckState> {
           .toList();
       final deck = state.deck.copyWith(entries: entries);
       emit(
-        state.copyWith(status: ManageDeckStatus.csvSuccess, deck: deck),
+        state.copyWith(status: ManageDeckStatus.initial, deck: deck),
       );
-    } on Exception {
+    } catch (e) {
       final deck = state.deck.copyWith(entries: []);
       emit(
         state.copyWith(status: ManageDeckStatus.csvFailure, deck: deck),

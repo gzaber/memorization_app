@@ -3,11 +3,10 @@ part of 'manage_deck_cubit.dart';
 enum ManageDeckStatus {
   initial,
   loading,
+  failure,
   emptyName,
   saveSuccess,
-  failure,
   csvLoading,
-  csvSuccess,
   csvFailure,
 }
 

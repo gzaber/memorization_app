@@ -56,6 +56,12 @@ class _SaveDeckIcon extends StatelessWidget {
             ..showSnackBar(
                 const SnackBar(content: Text('Unexpected error occured')));
         }
+        if (state.status == ManageDeckStatus.emptyName) {
+          ScaffoldMessenger.of(context)
+            ..removeCurrentSnackBar()
+            ..showSnackBar(
+                const SnackBar(content: Text('Name cannot be empty')));
+        }
         if (state.status == ManageDeckStatus.saveSuccess) {
           Navigator.of(context).pop();
         }

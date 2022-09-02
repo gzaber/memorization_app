@@ -12,10 +12,7 @@ class ManageDeckForm extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Deck name',
-            style: Theme.of(context).textTheme.headline5,
-          ),
+          Text('Deck name', style: Theme.of(context).textTheme.headline5),
           const SizedBox(height: 10.0),
           const _DeckNameInput(),
           const SizedBox(height: 20.0),
