@@ -9,16 +9,16 @@ import 'app/app.dart';
 void main() async {
   await Hive.initFlutter();
 
-  final CsvRepository _csvRepository = CsvRepository();
-  final DecksRepository _decksRepository = await DecksRepository.init(Hive);
-  final SettingsRepository _settingsRepository =
+  final CsvRepository csvRepository = CsvRepository();
+  final DecksRepository decksRepository = await DecksRepository.init(Hive);
+  final SettingsRepository settingsRepository =
       await SettingsRepository.init(Hive);
 
   runApp(
     App(
-      csvRepository: _csvRepository,
-      decksRepository: _decksRepository,
-      settingsRepository: _settingsRepository,
+      csvRepository: csvRepository,
+      decksRepository: decksRepository,
+      settingsRepository: settingsRepository,
     ),
   );
 }

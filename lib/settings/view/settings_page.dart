@@ -17,8 +17,8 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppTheme _appTheme = context.read<SettingsCubit>().state.appTheme;
-    AppFontSize _appFontSize = context.read<SettingsCubit>().state.appFontSize;
+    AppTheme appTheme = context.read<SettingsCubit>().state.appTheme;
+    AppFontSize appFontSize = context.read<SettingsCubit>().state.appFontSize;
 
     return Scaffold(
       appBar: AppBar(
@@ -43,7 +43,7 @@ class SettingsPage extends StatelessWidget {
                 key: const Key('settingsPage_lightTheme_radioListTile'),
                 title: const Text('light'),
                 value: AppTheme.light,
-                groupValue: _appTheme,
+                groupValue: appTheme,
                 onChanged: (value) async {
                   await context.read<SettingsCubit>().updateAppTheme(value!);
                 },
@@ -52,7 +52,7 @@ class SettingsPage extends StatelessWidget {
                 key: const Key('settingsPage_darkTheme_radioListTile'),
                 title: const Text('dark'),
                 value: AppTheme.dark,
-                groupValue: _appTheme,
+                groupValue: appTheme,
                 onChanged: (value) async {
                   await context.read<SettingsCubit>().updateAppTheme(value!);
                 },
@@ -65,7 +65,7 @@ class SettingsPage extends StatelessWidget {
                 key: const Key('settingsPage_smallFont_radioListTile'),
                 title: const Text('small'),
                 value: AppFontSize.small,
-                groupValue: _appFontSize,
+                groupValue: appFontSize,
                 onChanged: (value) async {
                   await context.read<SettingsCubit>().updateAppFontSize(value!);
                 },
@@ -74,7 +74,7 @@ class SettingsPage extends StatelessWidget {
                 key: const Key('settingsPage_mediumFont_radioListTile'),
                 title: const Text('medium'),
                 value: AppFontSize.medium,
-                groupValue: _appFontSize,
+                groupValue: appFontSize,
                 onChanged: (value) async {
                   await context.read<SettingsCubit>().updateAppFontSize(value!);
                 },
@@ -83,7 +83,7 @@ class SettingsPage extends StatelessWidget {
                 key: const Key('settingsPage_largeFont_radioListTile'),
                 title: const Text('large'),
                 value: AppFontSize.large,
-                groupValue: _appFontSize,
+                groupValue: appFontSize,
                 onChanged: (value) async {
                   await context.read<SettingsCubit>().updateAppFontSize(value!);
                 },

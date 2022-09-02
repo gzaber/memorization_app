@@ -34,18 +34,18 @@ class DeckMenuButton extends StatelessWidget {
       itemBuilder: (_) => <PopupMenuEntry>[
         const PopupMenuItem(
           key: Key('deckMenuButton_entryLayout_popupMenuItem'),
-          child: Text('Entry layout'),
           value: MenuItem.entryLayout,
+          child: Text('Entry layout'),
         ),
         const PopupMenuItem(
           key: Key('deckMenuButton_update_popupMenuItem'),
-          child: Text('Update'),
           value: MenuItem.update,
+          child: Text('Update'),
         ),
         const PopupMenuItem(
           key: Key('deckMenuButton_delete_popupMenuItem'),
-          child: Text('Delete'),
           value: MenuItem.delete,
+          child: Text('Delete'),
         ),
       ],
     );

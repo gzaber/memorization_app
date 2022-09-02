@@ -15,7 +15,7 @@ class CsvLinkDialog extends StatefulWidget {
 class _CsvLinkDialogState extends State<CsvLinkDialog> {
   @override
   Widget build(BuildContext context) {
-    String _url = widget.url;
+    String url = widget.url;
 
     return AlertDialog(
       title: const Text('Link to CSV document'),
@@ -24,9 +24,9 @@ class _CsvLinkDialogState extends State<CsvLinkDialog> {
         children: [
           TextField(
             key: const Key('csvLinkDialog_url_textField'),
-            controller: TextEditingController(text: _url),
+            controller: TextEditingController(text: url),
             onChanged: (csvUrl) {
-              _url = csvUrl;
+              url = csvUrl;
             },
           ),
         ],
@@ -40,7 +40,7 @@ class _CsvLinkDialogState extends State<CsvLinkDialog> {
         ),
         TextButton(
           key: const Key('csvLinkDialog_download_textButton'),
-          onPressed: () => Navigator.pop(context, _url),
+          onPressed: () => Navigator.pop(context, url),
           child: const Text('Download'),
         ),
       ],
