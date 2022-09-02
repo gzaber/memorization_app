@@ -1,25 +1,24 @@
+import 'package:csv_repository/csv_repository.dart';
+import 'package:decks_repository/decks_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:settings_repository/settings_repository.dart';
 
-import 'package:http/http.dart' as http;
-
-import 'app.dart';
-import 'data/data.dart';
-import 'repositories/repositories.dart';
+import 'app/app.dart';
 
 void main() async {
   await Hive.initFlutter();
 
-  final DeckDataSource _deckDataSource = await HiveDeckDataSource.create(Hive);
-  final SettingsDataSource _settingsDataSource =
-      await HiveSettingsDataSource.create(Hive);
-  final CsvService _csvService = GoogleSheetsCsvService(http.Client());
+  final CsvRepository _csvRepository = CsvRepository();
+  final DecksRepository _decksRepository = await DecksRepository.init(Hive);
+  final SettingsRepository _settingsRepository =
+      await SettingsRepository.init(Hive);
 
   runApp(
     App(
-      deckRepository: DeckRepository(_deckDataSource),
-      settingsRepository: SettingsRepository(_settingsDataSource),
-      csvRepository: CsvRepository(_csvService),
+      csvRepository: _csvRepository,
+      decksRepository: _decksRepository,
+      settingsRepository: _settingsRepository,
     ),
   );
 }
