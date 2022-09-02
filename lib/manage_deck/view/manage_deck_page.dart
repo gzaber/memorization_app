@@ -44,9 +44,7 @@ class ManageDeckPage extends StatelessWidget {
 }
 
 class _SaveDeckIcon extends StatelessWidget {
-  const _SaveDeckIcon({
-    Key? key,
-  }) : super(key: key);
+  const _SaveDeckIcon({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

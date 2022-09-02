@@ -46,9 +46,7 @@ class ManageDeckForm extends StatelessWidget {
 }
 
 class _DeckNameInput extends StatelessWidget {
-  const _DeckNameInput({
-    Key? key,
-  }) : super(key: key);
+  const _DeckNameInput({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +66,7 @@ class _DeckNameInput extends StatelessWidget {
 }
 
 class _CsvLinkInput extends StatelessWidget {
-  const _CsvLinkInput({
-    Key? key,
-  }) : super(key: key);
+  const _CsvLinkInput({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +75,8 @@ class _CsvLinkInput extends StatelessWidget {
         if (state.status == ManageDeckStatus.csvFailure) {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
-            ..showSnackBar(const SnackBar(content: Text('CSV error')));
+            ..showSnackBar(const SnackBar(
+                content: Text('Error occured during fetching CSV data')));
         }
       },
       builder: (context, state) {
@@ -121,6 +118,7 @@ class _EntriesNumber extends StatelessWidget {
         final entriesNumber =
             context.read<ManageDeckCubit>().state.deck.entries.length;
         return TextField(
+          key: const Key('manageDeckPage_entriesNumber_textField'),
           enabled: false,
           controller: TextEditingController(
               text: entriesNumber == 1 ? '1 entry' : '$entriesNumber entries'),

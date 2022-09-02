@@ -23,6 +23,7 @@ class _CsvLinkDialogState extends State<CsvLinkDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
+            key: const Key('csvLinkDialog_url_textField'),
             controller: TextEditingController(text: _url),
             onChanged: (csvUrl) {
               _url = csvUrl;
