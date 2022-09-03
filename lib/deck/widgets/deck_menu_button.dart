@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorization_app/l10n/l10n.dart';
 
 enum MenuItem { entryLayout, update, delete }
 
@@ -16,6 +17,7 @@ class DeckMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return PopupMenuButton(
       icon: const Icon(Icons.more_vert),
       onSelected: (value) {
@@ -32,20 +34,20 @@ class DeckMenuButton extends StatelessWidget {
         }
       },
       itemBuilder: (_) => <PopupMenuEntry>[
-        const PopupMenuItem(
-          key: Key('deckMenuButton_entryLayout_popupMenuItem'),
+        PopupMenuItem(
+          key: const Key('deckMenuButton_entryLayout_popupMenuItem'),
           value: MenuItem.entryLayout,
-          child: Text('Entry layout'),
+          child: Text(l10n.entryLayout),
         ),
-        const PopupMenuItem(
-          key: Key('deckMenuButton_update_popupMenuItem'),
+        PopupMenuItem(
+          key: const Key('deckMenuButton_update_popupMenuItem'),
           value: MenuItem.update,
-          child: Text('Update'),
+          child: Text(l10n.update),
         ),
-        const PopupMenuItem(
-          key: Key('deckMenuButton_delete_popupMenuItem'),
+        PopupMenuItem(
+          key: const Key('deckMenuButton_delete_popupMenuItem'),
           value: MenuItem.delete,
-          child: Text('Delete'),
+          child: Text(l10n.delete),
         ),
       ],
     );

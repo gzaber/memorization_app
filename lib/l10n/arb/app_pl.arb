@@ -1,0 +1,46 @@
+{
+    "appName": "MemorizationApp",
+    "unexpectedError": "Wystąpił niespodziewany błąd", 
+    "noDecksFound": "Nie znaleziono żadnych talii",
+    "noEntriesFound": "Nie znaleziono żadnych wpisów",
+    "create": "Utwórz",
+    "update": "Aktualizuj",
+    "delete": "Usuń",
+    "emptyName": "Nazwa talii nie może być pusta",
+    "deckName": "Nazwa talii",
+    "color": "Kolor",
+    "csvDocumentLink": "Link do dokumentu CSV",
+    "csvFailure": "Wystąpił błąd podczas pobierania danych CSV",
+    "oneEntry": "1 wpis",
+    "entries": "wpisy",
+    "settings": "Ustawienia",
+    "theme": "Motyw",
+    "fontSize": "Rozmiar czcionki",
+    "light": "jasny",
+    "dark": "ciemny",
+    "small": "mały",
+    "medium": "średni",
+    "large": "duży",
+    "entryLayout": "Układ wpisów",
+    "cancel": "Anuluj",
+    "ok": "OK",
+    "horizontal": "horyzontalny",
+    "expandCollapse" : "rozwiń / zwiń",
+    "download": "Pobierz",
+    "deleteDeckQuestion": "Usunąć talię \"{name}\"?",
+    "@deleteDeckQuestion": {
+        "placeholders": {
+            "name" : {
+                "type": "String"
+            }
+        }
+    },
+    "entriesNumber": "Wpisy: {count}",
+    "@entriesNumber": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    }
+}

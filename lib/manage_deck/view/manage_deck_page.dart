@@ -2,6 +2,7 @@ import 'package:csv_repository/csv_repository.dart';
 import 'package:decks_repository/decks_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:memorization_app/l10n/l10n.dart';
 import 'package:memorization_app/manage_deck/manage_deck.dart';
 
 class ManageDeckPage extends StatelessWidget {
@@ -22,6 +23,7 @@ class ManageDeckPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -30,8 +32,8 @@ class ManageDeckPage extends StatelessWidget {
         ),
         title: Text(
           context.read<ManageDeckCubit>().state.deckIndex == null
-              ? 'Create'
-              : 'Update',
+              ? l10n.create
+              : l10n.update,
         ),
         centerTitle: true,
         actions: const [_SaveDeckIcon()],
@@ -48,19 +50,18 @@ class _SaveDeckIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocConsumer<ManageDeckCubit, ManageDeckState>(
       listener: (context, state) {
         if (state.status == ManageDeckStatus.failure) {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
-            ..showSnackBar(
-                const SnackBar(content: Text('Unexpected error occured')));
+            ..showSnackBar(SnackBar(content: Text(l10n.unexpectedError)));
         }
         if (state.status == ManageDeckStatus.emptyName) {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
-            ..showSnackBar(
-                const SnackBar(content: Text('Name cannot be empty')));
+            ..showSnackBar(SnackBar(content: Text(l10n.emptyName)));
         }
         if (state.status == ManageDeckStatus.saveSuccess) {
           Navigator.of(context).pop();

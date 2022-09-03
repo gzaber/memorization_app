@@ -2,6 +2,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:decks_repository/decks_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:memorization_app/manage_deck/manage_deck.dart';
 import 'package:mocktail/mocktail.dart';
@@ -12,6 +14,8 @@ extension PumpForm on WidgetTester {
       BlocProvider.value(
         value: manageDeckCubit,
         child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: Scaffold(
             body: ManageDeckPage(),
           ),
@@ -20,6 +24,8 @@ extension PumpForm on WidgetTester {
     );
   }
 }
+
+AppLocalizations get l10n => AppLocalizationsEn();
 
 class MockManageDeckCubit extends MockCubit<ManageDeckState>
     implements ManageDeckCubit {}
@@ -131,7 +137,7 @@ void main() {
       final textField = tester.widget<TextField>(
           find.byKey(const Key('manageDeckPage_entriesNumber_textField')));
 
-      expect(textField.controller!.text, equals('2 entries'));
+      expect(textField.controller!.text, equals(l10n.entriesNumber(2)));
     });
 
     testWidgets('shows SnackBar with message when exception occured ',
@@ -148,8 +154,7 @@ void main() {
 
       expect(
         find.descendant(
-            of: find.byType(SnackBar),
-            matching: find.text('Error occured during fetching CSV data')),
+            of: find.byType(SnackBar), matching: find.text(l10n.csvFailure)),
         findsOneWidget,
       );
     });

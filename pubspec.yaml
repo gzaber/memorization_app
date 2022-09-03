@@ -16,7 +16,10 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
+  flutter_localizations:
+    sdk: flutter
   hive_flutter: ^1.1.0
+  intl: ^0.17.0
   settings_repository:
     path: packages/settings_repository
 
@@ -29,4 +32,5 @@ dev_dependencies:
   mockingjay: ^0.3.0
 
 flutter:
+  generate: true
   uses-material-design: true

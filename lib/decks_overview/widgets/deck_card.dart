@@ -1,5 +1,6 @@
 import 'package:decks_repository/decks_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:memorization_app/l10n/l10n.dart';
 
 class DeckCard extends StatelessWidget {
   final Deck deck;
@@ -13,6 +14,7 @@ class DeckCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Card(
       elevation: 5,
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
@@ -31,9 +33,7 @@ class DeckCard extends StatelessWidget {
         ),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 5),
-          child: Text(deck.entries.length == 1
-              ? '1 entry'
-              : '${deck.entries.length} entries'),
+          child: Text(l10n.entriesNumber(deck.entries.length)),
         ),
         minVerticalPadding: 16,
         shape: RoundedRectangleBorder(

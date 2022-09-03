@@ -3,6 +3,7 @@ import 'package:decks_repository/decks_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memorization_app/decks_overview/decks_overview.dart';
+import 'package:memorization_app/l10n/l10n.dart';
 import 'package:memorization_app/settings/settings.dart';
 import 'package:settings_repository/settings_repository.dart';
 
@@ -53,6 +54,8 @@ class AppView extends StatelessWidget {
         appTheme: settings.appTheme,
         appFontSize: settings.appFontSize,
       ),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: const DecksOverviewPage(),
     );
   }

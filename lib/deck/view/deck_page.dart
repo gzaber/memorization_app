@@ -2,6 +2,7 @@ import 'package:decks_repository/decks_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memorization_app/deck/deck.dart';
+import 'package:memorization_app/l10n/l10n.dart';
 import 'package:memorization_app/manage_deck/manage_deck.dart';
 
 class DeckPage extends StatelessWidget {
@@ -22,6 +23,7 @@ class DeckPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -65,8 +67,7 @@ class DeckPage extends StatelessWidget {
             if (state.status == DeckStatus.failure) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
-                ..showSnackBar(
-                    const SnackBar(content: Text('Unexpected error occured')));
+                ..showSnackBar(SnackBar(content: Text(l10n.unexpectedError)));
             }
             if (state.status == DeckStatus.deleteSuccess) {
               Navigator.of(context).pop();
@@ -78,7 +79,7 @@ class DeckPage extends StatelessWidget {
             }
             if (state.status == DeckStatus.loadSuccess) {
               if (state.deck.entries.isEmpty) {
-                return const Center(child: Text('No entries'));
+                return Center(child: Text(l10n.noEntriesFound));
               }
               return state.deck.entryLayout == EntryLayout.horizontal
                   ? HorizontalEntryList(entries: state.deck.entries)

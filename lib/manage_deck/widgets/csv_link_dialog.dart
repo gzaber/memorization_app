@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorization_app/l10n/l10n.dart';
 
 class CsvLinkDialog extends StatefulWidget {
   const CsvLinkDialog({
@@ -26,10 +27,11 @@ class CsvLinkDialog extends StatefulWidget {
 class _CsvLinkDialogState extends State<CsvLinkDialog> {
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     String url = widget.url;
 
     return AlertDialog(
-      title: const Text('Link to CSV document'),
+      title: Text(l10n.csvDocumentLink),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -47,12 +49,12 @@ class _CsvLinkDialogState extends State<CsvLinkDialog> {
         TextButton(
           key: const Key('csvLinkDialog_cancel_textButton'),
           onPressed: () => Navigator.pop(context, null),
-          child: const Text('Cancel'),
+          child: Text(l10n.cancel),
         ),
         TextButton(
           key: const Key('csvLinkDialog_download_textButton'),
           onPressed: () => Navigator.pop(context, url),
-          child: const Text('Download'),
+          child: Text(l10n.download),
         ),
       ],
     );

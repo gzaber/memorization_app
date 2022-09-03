@@ -3,6 +3,8 @@ import 'package:csv_repository/csv_repository.dart';
 import 'package:decks_repository/decks_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:memorization_app/manage_deck/manage_deck.dart';
 import 'package:mockingjay/mockingjay.dart';
@@ -13,6 +15,8 @@ extension PumpPage on WidgetTester {
       BlocProvider.value(
         value: manageDeckCubit,
         child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: ManageDeckPage(),
         ),
       ),
@@ -29,6 +33,8 @@ extension PumpPageMockNav on WidgetTester {
       BlocProvider.value(
         value: manageDeckCubit,
         child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: MockNavigatorProvider(
             navigator: navigator,
             child: const ManageDeckPage(),
@@ -38,6 +44,8 @@ extension PumpPageMockNav on WidgetTester {
     );
   }
 }
+
+AppLocalizations get l10n => AppLocalizationsEn();
 
 class MockCsvRepository extends Mock implements CsvRepository {}
 
@@ -69,6 +77,8 @@ void main() {
             RepositoryProvider.value(value: decksRepository),
           ],
           child: MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             home: Builder(
               builder: (context) => Scaffold(
                 floatingActionButton: FloatingActionButton(
@@ -96,7 +106,8 @@ void main() {
       await tester.pumpManageDeckPage(manageDeckCubit: manageDeckCubit);
 
       expect(
-        find.descendant(of: find.byType(AppBar), matching: find.text('Create')),
+        find.descendant(
+            of: find.byType(AppBar), matching: find.text(l10n.create)),
         findsOneWidget,
       );
     });
@@ -109,7 +120,8 @@ void main() {
       await tester.pumpManageDeckPage(manageDeckCubit: manageDeckCubit);
 
       expect(
-        find.descendant(of: find.byType(AppBar), matching: find.text('Update')),
+        find.descendant(
+            of: find.byType(AppBar), matching: find.text(l10n.update)),
         findsOneWidget,
       );
     });
@@ -224,7 +236,7 @@ void main() {
       expect(
         find.descendant(
             of: find.byType(SnackBar),
-            matching: find.text('Unexpected error occured')),
+            matching: find.text(l10n.unexpectedError)),
         findsOneWidget,
       );
     });
@@ -242,8 +254,7 @@ void main() {
 
       expect(
         find.descendant(
-            of: find.byType(SnackBar),
-            matching: find.text('Name cannot be empty')),
+            of: find.byType(SnackBar), matching: find.text(l10n.emptyName)),
         findsOneWidget,
       );
     });
