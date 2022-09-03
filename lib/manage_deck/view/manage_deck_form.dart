@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:memorization_app/l10n/l10n.dart';
 import 'package:memorization_app/manage_deck/manage_deck.dart';
 
 class ManageDeckForm extends StatelessWidget {
@@ -7,37 +8,35 @@ class ManageDeckForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Deck name',
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          const SizedBox(height: 10.0),
+          Text(l10n.deckName, style: Theme.of(context).textTheme.headline5),
+          const SizedBox(height: 10),
           const _DeckNameInput(),
-          const SizedBox(height: 20.0),
+          const SizedBox(height: 20),
           Text(
-            'Color',
+            l10n.color,
             style: Theme.of(context).textTheme.headline5,
           ),
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 10),
           DeckColorPicker(
             color: context.read<ManageDeckCubit>().state.deck.color,
             onColorChanged: (color) {
               context.read<ManageDeckCubit>().onColorChanged(color);
             },
           ),
-          const SizedBox(height: 20.0),
+          const SizedBox(height: 20),
           Text(
-            'CSV document link',
+            l10n.csvDocumentLink,
             style: Theme.of(context).textTheme.headline5,
           ),
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 10),
           const _CsvLinkInput(),
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 10),
           const _EntriesNumber(),
         ],
       ),
@@ -70,13 +69,13 @@ class _CsvLinkInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocConsumer<ManageDeckCubit, ManageDeckState>(
       listener: (context, state) {
         if (state.status == ManageDeckStatus.csvFailure) {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
-            ..showSnackBar(const SnackBar(
-                content: Text('Error occured during fetching CSV data')));
+            ..showSnackBar(SnackBar(content: Text(l10n.csvFailure)));
         }
       },
       builder: (context, state) {
@@ -92,10 +91,9 @@ class _CsvLinkInput extends StatelessWidget {
             icon: Icon(Icons.link),
             border: OutlineInputBorder(),
           ),
-          onTap: () => showDialog(
-            context: context,
-            builder: (_) => CsvLinkDialog(
-                url: context.read<ManageDeckCubit>().state.deck.url),
+          onTap: () => CsvLinkDialog.show(
+            context,
+            context.read<ManageDeckCubit>().state.deck.url,
           ).then((value) async {
             if (value != null) {
               context.read<ManageDeckCubit>().onUrlChanged(value);
@@ -113,21 +111,18 @@ class _EntriesNumber extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ManageDeckCubit, ManageDeckState>(
-      builder: (context, state) {
-        final entriesNumber =
-            context.read<ManageDeckCubit>().state.deck.entries.length;
-        return TextField(
-          key: const Key('manageDeckPage_entriesNumber_textField'),
-          enabled: false,
-          controller: TextEditingController(
-              text: entriesNumber == 1 ? '1 entry' : '$entriesNumber entries'),
-          decoration: const InputDecoration(
-            icon: Icon(Icons.list),
-            border: InputBorder.none,
-          ),
-        );
-      },
+    final l10n = context.l10n;
+    final entriesNumber = context
+        .select((ManageDeckCubit cubit) => cubit.state.deck.entries.length);
+    return TextField(
+      key: const Key('manageDeckPage_entriesNumber_textField'),
+      enabled: false,
+      controller:
+          TextEditingController(text: l10n.entriesNumber(entriesNumber)),
+      decoration: const InputDecoration(
+        icon: Icon(Icons.list),
+        border: InputBorder.none,
+      ),
     );
   }
 }

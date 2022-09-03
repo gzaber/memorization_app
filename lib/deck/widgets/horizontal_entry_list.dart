@@ -26,7 +26,7 @@ class HorizontalEntryList extends StatelessWidget {
                   style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
-              const SizedBox(width: 10.0),
+              const SizedBox(width: 10),
               Flexible(
                 fit: FlexFit.tight,
                 child: Text(entries[index].content),

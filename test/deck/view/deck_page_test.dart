@@ -3,6 +3,8 @@ import 'package:csv_repository/csv_repository.dart';
 import 'package:decks_repository/decks_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:memorization_app/deck/deck.dart';
 import 'package:memorization_app/manage_deck/manage_deck.dart';
@@ -14,6 +16,8 @@ extension PumpPage on WidgetTester {
       BlocProvider.value(
         value: deckCubit,
         child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: DeckPage(),
         ),
       ),
@@ -30,8 +34,12 @@ extension PumpPageMockNav on WidgetTester {
       BlocProvider.value(
         value: deckCubit,
         child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: MockNavigatorProvider(
-              navigator: navigator, child: const DeckPage()),
+            navigator: navigator,
+            child: const DeckPage(),
+          ),
         ),
       ),
     );
@@ -55,6 +63,8 @@ extension PumpPageManualNav on WidgetTester {
           ),
         ],
         child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: BlocProvider.value(
             value: deckCubit,
             child: const DeckPage(),
@@ -64,6 +74,8 @@ extension PumpPageManualNav on WidgetTester {
     );
   }
 }
+
+AppLocalizations get l10n => AppLocalizationsEn();
 
 class MockDecksRepository extends Mock implements DecksRepository {}
 
@@ -101,6 +113,8 @@ void main() {
         RepositoryProvider.value(
           value: decksRepository,
           child: MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             home: Builder(
               builder: (context) => Scaffold(
                 floatingActionButton: FloatingActionButton(
@@ -173,7 +187,7 @@ void main() {
 
       await tester.pumpDeckPage(deckCubit: deckCubit);
 
-      expect(find.text('No entries'), findsOneWidget);
+      expect(find.text(l10n.noEntriesFound), findsOneWidget);
     });
 
     testWidgets('shows SnackBar with message when exception occurs',
@@ -192,7 +206,7 @@ void main() {
       expect(
         find.descendant(
             of: find.byType(SnackBar),
-            matching: find.text('Unexpected error occured')),
+            matching: find.text(l10n.unexpectedError)),
         findsOneWidget,
       );
     });
@@ -271,9 +285,9 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(PopupMenuItem), findsNWidgets(3));
-      expect(find.text('Entry layout'), findsOneWidget);
-      expect(find.text('Update'), findsOneWidget);
-      expect(find.text('Delete'), findsOneWidget);
+      expect(find.text(l10n.entryLayout), findsOneWidget);
+      expect(find.text(l10n.update), findsOneWidget);
+      expect(find.text(l10n.delete), findsOneWidget);
     });
 
     testWidgets(

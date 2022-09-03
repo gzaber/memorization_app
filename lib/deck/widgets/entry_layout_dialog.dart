@@ -1,5 +1,6 @@
 import 'package:decks_repository/decks_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:memorization_app/l10n/l10n.dart';
 
 class EntryLayoutDialog extends StatefulWidget {
   const EntryLayoutDialog({
@@ -8,6 +9,17 @@ class EntryLayoutDialog extends StatefulWidget {
   }) : super(key: key);
 
   final EntryLayout entryLayout;
+
+  static Future<EntryLayout?> show(
+    BuildContext context,
+    EntryLayout entryLayout,
+  ) {
+    return showDialog<EntryLayout>(
+      context: context,
+      useRootNavigator: false,
+      builder: (_) => EntryLayoutDialog(entryLayout: entryLayout),
+    );
+  }
 
   @override
   State<EntryLayoutDialog> createState() => _EntryLayoutDialogState();
@@ -24,14 +36,15 @@ class _EntryLayoutDialogState extends State<EntryLayoutDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return AlertDialog(
-      title: const Text('Entry layout'),
+      title: Text(l10n.entryLayout),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           RadioListTile<EntryLayout>(
             key: const Key('entryLayoutDialog_horizontal_radioListTile'),
-            title: const Text('horizontal'),
+            title: Text(l10n.horizontal),
             value: EntryLayout.horizontal,
             groupValue: _layout,
             onChanged: (layout) {
@@ -42,7 +55,7 @@ class _EntryLayoutDialogState extends State<EntryLayoutDialog> {
           ),
           RadioListTile<EntryLayout>(
             key: const Key('entryLayoutDialog_expansion_radioListTile'),
-            title: const Text('expand / collapse'),
+            title: Text(l10n.expandCollapse),
             value: EntryLayout.expansion,
             groupValue: _layout,
             onChanged: (layout) {
@@ -58,12 +71,12 @@ class _EntryLayoutDialogState extends State<EntryLayoutDialog> {
         TextButton(
           key: const Key('entryLayoutDialog_cancel_textButton'),
           onPressed: () => Navigator.pop(context, null),
-          child: const Text('Cancel'),
+          child: Text(l10n.cancel),
         ),
         TextButton(
           key: const Key('entryLayoutDialog_ok_textButton'),
           onPressed: () => Navigator.pop(context, _layout),
-          child: const Text('OK'),
+          child: Text(l10n.ok),
         ),
       ],
     );

@@ -1,0 +1,44 @@
+{
+    "appName": "MemorizationApp",
+    "unexpectedError": "Unexpected error occured", 
+    "noDecksFound": "No decks found",
+    "noEntriesFound": "No entries found",
+    "create": "Create",
+    "update": "Update",
+    "delete": "Delete",
+    "emptyName": "Deck name cannot be empty",
+    "deckName": "Deck name",
+    "color": "Color",
+    "csvDocumentLink": "CSV document link",
+    "csvFailure": "Error occured during fetching CSV data",
+    "settings": "Settings",
+    "theme": "Theme",
+    "fontSize": "Font size",
+    "light": "light",
+    "dark": "dark",
+    "small": "small",
+    "medium": "medium",
+    "large": "large",
+    "entryLayout": "Entry layout",
+    "cancel": "Cancel",
+    "ok": "OK",
+    "horizontal": "horizontal",
+    "expandCollapse" : "expand / collapse",
+    "download": "Download",
+    "deleteDeckQuestion": "Delete \"{name}\" deck?",
+    "@deleteDeckQuestion": {
+        "placeholders": {
+            "name" : {
+                "type": "String"
+            }
+        }
+    },
+    "entriesNumber": "Entries: {count}",
+    "@entriesNumber": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    }
+}

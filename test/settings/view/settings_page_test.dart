@@ -1,6 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:memorization_app/settings/settings.dart';
 import 'package:mockingjay/mockingjay.dart';
@@ -12,12 +14,16 @@ extension PumpView on WidgetTester {
       BlocProvider.value(
         value: settingsCubit,
         child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: SettingsPage(),
         ),
       ),
     );
   }
 }
+
+AppLocalizations get l10n => AppLocalizationsEn();
 
 class MockSettingsCubit extends MockCubit<Settings> implements SettingsCubit {}
 
@@ -41,6 +47,8 @@ void main() {
         BlocProvider.value(
           value: settingsCubit,
           child: MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             home: Builder(
               builder: (context) => Scaffold(
                 floatingActionButton: FloatingActionButton(
@@ -67,7 +75,7 @@ void main() {
 
       expect(
         find.descendant(
-            of: find.byType(AppBar), matching: find.text('Settings')),
+            of: find.byType(AppBar), matching: find.text(l10n.settings)),
         findsOneWidget,
       );
       expect(
@@ -91,13 +99,13 @@ void main() {
       expect(find.byType(RadioListTile<AppTheme>), findsNWidgets(2));
       expect(find.byType(RadioListTile<AppFontSize>), findsNWidgets(3));
 
-      expect(find.text('Theme'), findsOneWidget);
-      expect(find.text('light'), findsOneWidget);
-      expect(find.text('dark'), findsOneWidget);
-      expect(find.text('Font size'), findsOneWidget);
-      expect(find.text('small'), findsOneWidget);
-      expect(find.text('medium'), findsOneWidget);
-      expect(find.text('large'), findsOneWidget);
+      expect(find.text(l10n.theme), findsOneWidget);
+      expect(find.text(l10n.light), findsOneWidget);
+      expect(find.text(l10n.dark), findsOneWidget);
+      expect(find.text(l10n.fontSize), findsOneWidget);
+      expect(find.text(l10n.small), findsOneWidget);
+      expect(find.text(l10n.medium), findsOneWidget);
+      expect(find.text(l10n.large), findsOneWidget);
     });
 
     testWidgets('proper radios are checked', (tester) async {
@@ -214,6 +222,8 @@ void main() {
         BlocProvider.value(
           value: settingsCubit,
           child: MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             home: MockNavigatorProvider(
               navigator: navigator,
               child: const SettingsPage(),

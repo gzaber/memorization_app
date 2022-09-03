@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memorization_app/deck/deck.dart';
 import 'package:memorization_app/decks_overview/decks_overview.dart';
+import 'package:memorization_app/l10n/l10n.dart';
 import 'package:memorization_app/manage_deck/manage_deck.dart';
 import 'package:memorization_app/settings/settings.dart';
 
@@ -25,9 +26,10 @@ class DecksOverviewView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MemorizationApp'),
+        title: Text(l10n.appName),
         centerTitle: true,
         actions: [
           IconButton(
@@ -50,8 +52,8 @@ class DecksOverviewView extends StatelessWidget {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
-                  const SnackBar(
-                    content: Text('Something went wrong during fetching decks'),
+                  SnackBar(
+                    content: Text(l10n.unexpectedError),
                   ),
                 );
             }
@@ -62,11 +64,11 @@ class DecksOverviewView extends StatelessWidget {
             }
             if (state.status == DecksOverviewStatus.success) {
               if (state.decks.isEmpty) {
-                return const Center(child: Text('No decks'));
+                return Center(child: Text(l10n.noDecksFound));
               }
               return ListView.builder(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                 itemCount: state.decks.length,
                 itemBuilder: (context, index) {
                   return DeckCard(

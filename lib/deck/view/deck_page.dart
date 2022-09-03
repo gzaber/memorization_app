@@ -2,6 +2,7 @@ import 'package:decks_repository/decks_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memorization_app/deck/deck.dart';
+import 'package:memorization_app/l10n/l10n.dart';
 import 'package:memorization_app/manage_deck/manage_deck.dart';
 
 class DeckPage extends StatelessWidget {
@@ -22,51 +23,42 @@ class DeckPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text(
-            context.read<DeckCubit>().state.deck.name), //const _DeckTitle(),
+        title: const _DeckTitle(),
         centerTitle: true,
         actions: [
-          const SizedBox(width: 10.0),
-          //const _CircleAvatar(),
-          CircleAvatar(
-            backgroundColor: Color(context.read<DeckCubit>().state.deck.color),
-            child: const Icon(Icons.folder_open),
-          ),
+          const SizedBox(width: 10),
+          const _CircleAvatar(),
           DeckMenuButton(
-              onEntryLayout: () => showDialog(
-                    context: context,
-                    useRootNavigator: false,
-                    builder: (_) => EntryLayoutDialog(
-                      entryLayout:
-                          context.read<DeckCubit>().state.deck.entryLayout,
-                    ),
-                  ).then((value) {
-                    if (value != null) {
-                      context.read<DeckCubit>().onLayoutChanged(value);
-                    }
-                  }),
-              onUpdate: () => Navigator.of(context)
-                  .push<void>(ManageDeckPage.route(
-                    deckIndex: context.read<DeckCubit>().state.deckIndex,
-                  ))
-                  .then((_) => context.read<DeckCubit>()
-                    ..readDeck(context.read<DeckCubit>().state.deckIndex)),
-              onDelete: () => showDialog(
-                      context: context,
-                      useRootNavigator: false,
-                      builder: (_) => DeleteDeckDialog(
-                            name: context.read<DeckCubit>().state.deck.name,
-                          )).then((value) async {
-                    if (value) {
-                      await context.read<DeckCubit>().deleteDeck();
-                    }
-                  })),
+            onEntryLayout: () => EntryLayoutDialog.show(
+              context,
+              context.read<DeckCubit>().state.deck.entryLayout,
+            ).then((value) {
+              if (value != null) {
+                context.read<DeckCubit>().onLayoutChanged(value);
+              }
+            }),
+            onUpdate: () => Navigator.of(context)
+                .push<void>(ManageDeckPage.route(
+                  deckIndex: context.read<DeckCubit>().state.deckIndex,
+                ))
+                .then((_) => context.read<DeckCubit>()
+                  ..readDeck(context.read<DeckCubit>().state.deckIndex)),
+            onDelete: () => DeleteDeckDialog.show(
+              context,
+              context.read<DeckCubit>().state.deck.name,
+            ).then((value) async {
+              if (value != null && value) {
+                await context.read<DeckCubit>().deleteDeck();
+              }
+            }),
+          ),
         ],
       ),
       body: SafeArea(
@@ -75,8 +67,7 @@ class DeckPage extends StatelessWidget {
             if (state.status == DeckStatus.failure) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
-                ..showSnackBar(
-                    const SnackBar(content: Text('Unexpected error occured')));
+                ..showSnackBar(SnackBar(content: Text(l10n.unexpectedError)));
             }
             if (state.status == DeckStatus.deleteSuccess) {
               Navigator.of(context).pop();
@@ -88,7 +79,7 @@ class DeckPage extends StatelessWidget {
             }
             if (state.status == DeckStatus.loadSuccess) {
               if (state.deck.entries.isEmpty) {
-                return const Center(child: Text('No entries'));
+                return Center(child: Text(l10n.noEntriesFound));
               }
               return state.deck.entryLayout == EntryLayout.horizontal
                   ? HorizontalEntryList(entries: state.deck.entries)
@@ -103,31 +94,25 @@ class DeckPage extends StatelessWidget {
   }
 }
 
-// class _DeckTitle extends StatelessWidget {
-//   const _DeckTitle({Key? key}) : super(key: key);
+class _DeckTitle extends StatelessWidget {
+  const _DeckTitle({Key? key}) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<DeckCubit, DeckState>(
-//       builder: (context, state) {
-//         return Text(context.read<DeckCubit>().state.deck.name);
-//       },
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    final name = context.select((DeckCubit cubit) => cubit.state.deck.name);
+    return Text(name);
+  }
+}
 
-// class _CircleAvatar extends StatelessWidget {
-//   const _CircleAvatar({Key? key}) : super(key: key);
+class _CircleAvatar extends StatelessWidget {
+  const _CircleAvatar({Key? key}) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<DeckCubit, DeckState>(
-//       builder: (context, state) {
-//         return CircleAvatar(
-//           backgroundColor: Color(context.read<DeckCubit>().state.deck.color),
-//           child: const Icon(Icons.folder_open),
-//         );
-//       },
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    final color = context.select((DeckCubit cubit) => cubit.state.deck.color);
+    return CircleAvatar(
+      backgroundColor: Color(color),
+      child: const Icon(Icons.folder_open),
+    );
+  }
+}

@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:memorization_app/l10n/l10n.dart';
 
 class CsvLinkDialog extends StatefulWidget {
-  final String url;
-
   const CsvLinkDialog({
     Key? key,
     required this.url,
   }) : super(key: key);
+
+  final String url;
+
+  static Future<String?> show(
+    BuildContext context,
+    String url,
+  ) {
+    return showDialog<String>(
+      context: context,
+      useRootNavigator: false,
+      builder: (_) => CsvLinkDialog(url: url),
+    );
+  }
 
   @override
   State<CsvLinkDialog> createState() => _CsvLinkDialogState();
@@ -15,18 +27,19 @@ class CsvLinkDialog extends StatefulWidget {
 class _CsvLinkDialogState extends State<CsvLinkDialog> {
   @override
   Widget build(BuildContext context) {
-    String _url = widget.url;
+    final l10n = context.l10n;
+    String url = widget.url;
 
     return AlertDialog(
-      title: const Text('Link to CSV document'),
+      title: Text(l10n.csvDocumentLink),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             key: const Key('csvLinkDialog_url_textField'),
-            controller: TextEditingController(text: _url),
+            controller: TextEditingController(text: url),
             onChanged: (csvUrl) {
-              _url = csvUrl;
+              url = csvUrl;
             },
           ),
         ],
@@ -36,12 +49,12 @@ class _CsvLinkDialogState extends State<CsvLinkDialog> {
         TextButton(
           key: const Key('csvLinkDialog_cancel_textButton'),
           onPressed: () => Navigator.pop(context, null),
-          child: const Text('Cancel'),
+          child: Text(l10n.cancel),
         ),
         TextButton(
           key: const Key('csvLinkDialog_download_textButton'),
-          onPressed: () => Navigator.pop(context, _url),
-          child: const Text('Download'),
+          onPressed: () => Navigator.pop(context, url),
+          child: Text(l10n.download),
         ),
       ],
     );

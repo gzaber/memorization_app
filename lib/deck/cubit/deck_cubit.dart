@@ -22,7 +22,7 @@ class DeckCubit extends Cubit<DeckState> {
         return;
       }
       emit(state.copyWith(status: DeckStatus.loadSuccess, deck: deck));
-    } on Exception {
+    } catch (e) {
       emit(state.copyWith(status: DeckStatus.failure));
     }
   }
@@ -33,7 +33,7 @@ class DeckCubit extends Cubit<DeckState> {
       final deck = state.deck.copyWith(entryLayout: layout);
       await _decksRepository.update(state.deckIndex, deck);
       emit(state.copyWith(status: DeckStatus.loadSuccess, deck: deck));
-    } on Exception {
+    } catch (e) {
       emit(state.copyWith(status: DeckStatus.failure));
     }
   }
@@ -43,7 +43,7 @@ class DeckCubit extends Cubit<DeckState> {
     try {
       await _decksRepository.delete(state.deckIndex);
       emit(state.copyWith(status: DeckStatus.deleteSuccess));
-    } on Exception {
+    } catch (e) {
       emit(state.copyWith(status: DeckStatus.failure));
     }
   }
