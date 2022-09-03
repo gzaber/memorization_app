@@ -8,6 +8,17 @@ class CsvLinkDialog extends StatefulWidget {
 
   final String url;
 
+  static Future<String?> show(
+    BuildContext context,
+    String url,
+  ) {
+    return showDialog<String>(
+      context: context,
+      useRootNavigator: false,
+      builder: (_) => CsvLinkDialog(url: url),
+    );
+  }
+
   @override
   State<CsvLinkDialog> createState() => _CsvLinkDialogState();
 }

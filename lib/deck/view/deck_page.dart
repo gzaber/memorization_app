@@ -34,34 +34,29 @@ class DeckPage extends StatelessWidget {
           const SizedBox(width: 10),
           const _CircleAvatar(),
           DeckMenuButton(
-              onEntryLayout: () => showDialog(
-                    context: context,
-                    useRootNavigator: false,
-                    builder: (_) => EntryLayoutDialog(
-                      entryLayout:
-                          context.read<DeckCubit>().state.deck.entryLayout,
-                    ),
-                  ).then((value) {
-                    if (value != null) {
-                      context.read<DeckCubit>().onLayoutChanged(value);
-                    }
-                  }),
-              onUpdate: () => Navigator.of(context)
-                  .push<void>(ManageDeckPage.route(
-                    deckIndex: context.read<DeckCubit>().state.deckIndex,
-                  ))
-                  .then((_) => context.read<DeckCubit>()
-                    ..readDeck(context.read<DeckCubit>().state.deckIndex)),
-              onDelete: () => showDialog(
-                      context: context,
-                      useRootNavigator: false,
-                      builder: (_) => DeleteDeckDialog(
-                            name: context.read<DeckCubit>().state.deck.name,
-                          )).then((value) async {
-                    if (value) {
-                      await context.read<DeckCubit>().deleteDeck();
-                    }
-                  })),
+            onEntryLayout: () => EntryLayoutDialog.show(
+              context,
+              context.read<DeckCubit>().state.deck.entryLayout,
+            ).then((value) {
+              if (value != null) {
+                context.read<DeckCubit>().onLayoutChanged(value);
+              }
+            }),
+            onUpdate: () => Navigator.of(context)
+                .push<void>(ManageDeckPage.route(
+                  deckIndex: context.read<DeckCubit>().state.deckIndex,
+                ))
+                .then((_) => context.read<DeckCubit>()
+                  ..readDeck(context.read<DeckCubit>().state.deckIndex)),
+            onDelete: () => DeleteDeckDialog.show(
+              context,
+              context.read<DeckCubit>().state.deck.name,
+            ).then((value) async {
+              if (value != null && value) {
+                await context.read<DeckCubit>().deleteDeck();
+              }
+            }),
+          ),
         ],
       ),
       body: SafeArea(

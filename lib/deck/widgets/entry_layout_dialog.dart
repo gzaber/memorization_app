@@ -9,6 +9,17 @@ class EntryLayoutDialog extends StatefulWidget {
 
   final EntryLayout entryLayout;
 
+  static Future<EntryLayout?> show(
+    BuildContext context,
+    EntryLayout entryLayout,
+  ) {
+    return showDialog<EntryLayout>(
+      context: context,
+      useRootNavigator: false,
+      builder: (_) => EntryLayoutDialog(entryLayout: entryLayout),
+    );
+  }
+
   @override
   State<EntryLayoutDialog> createState() => _EntryLayoutDialogState();
 }

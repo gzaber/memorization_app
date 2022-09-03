@@ -89,10 +89,9 @@ class _CsvLinkInput extends StatelessWidget {
             icon: Icon(Icons.link),
             border: OutlineInputBorder(),
           ),
-          onTap: () => showDialog(
-            context: context,
-            builder: (_) => CsvLinkDialog(
-                url: context.read<ManageDeckCubit>().state.deck.url),
+          onTap: () => CsvLinkDialog.show(
+            context,
+            context.read<ManageDeckCubit>().state.deck.url,
           ).then((value) async {
             if (value != null) {
               context.read<ManageDeckCubit>().onUrlChanged(value);

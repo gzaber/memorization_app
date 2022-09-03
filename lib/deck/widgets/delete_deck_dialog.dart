@@ -8,6 +8,14 @@ class DeleteDeckDialog extends StatelessWidget {
 
   final String name;
 
+  static Future<bool?> show(BuildContext context, String name) {
+    return showDialog<bool>(
+      context: context,
+      useRootNavigator: false,
+      builder: (_) => DeleteDeckDialog(name: name),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -17,12 +25,12 @@ class DeleteDeckDialog extends StatelessWidget {
       actions: [
         TextButton(
           key: const Key('deleteDeckDialog_cancel_textButton'),
-          onPressed: () => Navigator.pop<bool>(context, false),
+          onPressed: () => Navigator.of(context).pop<bool>(false),
           child: const Text('Cancel'),
         ),
         TextButton(
           key: const Key('deleteDeckDialog_ok_textButton'),
-          onPressed: () => Navigator.pop<bool>(context, true),
+          onPressed: () => Navigator.of(context).pop<bool>(true),
           child: const Text('OK'),
         ),
       ],
