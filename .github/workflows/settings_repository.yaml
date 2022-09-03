@@ -22,6 +22,7 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test --coverage
+      - run: ls
       - name: Exclude generated files
         uses: VeryGoodOpenSource/very_good_coverage@v1.2.1
         with:
