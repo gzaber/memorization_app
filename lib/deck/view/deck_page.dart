@@ -98,11 +98,8 @@ class _DeckTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DeckCubit, DeckState>(
-      builder: (context, state) {
-        return Text(context.read<DeckCubit>().state.deck.name);
-      },
-    );
+    final name = context.select((DeckCubit cubit) => cubit.state.deck.name);
+    return Text(name);
   }
 }
 
@@ -111,13 +108,10 @@ class _CircleAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DeckCubit, DeckState>(
-      builder: (context, state) {
-        return CircleAvatar(
-          backgroundColor: Color(context.read<DeckCubit>().state.deck.color),
-          child: const Icon(Icons.folder_open),
-        );
-      },
+    final color = context.select((DeckCubit cubit) => cubit.state.deck.color);
+    return CircleAvatar(
+      backgroundColor: Color(color),
+      child: const Icon(Icons.folder_open),
     );
   }
 }

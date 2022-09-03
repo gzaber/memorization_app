@@ -109,21 +109,17 @@ class _EntriesNumber extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ManageDeckCubit, ManageDeckState>(
-      builder: (context, state) {
-        final entriesNumber =
-            context.read<ManageDeckCubit>().state.deck.entries.length;
-        return TextField(
-          key: const Key('manageDeckPage_entriesNumber_textField'),
-          enabled: false,
-          controller: TextEditingController(
-              text: entriesNumber == 1 ? '1 entry' : '$entriesNumber entries'),
-          decoration: const InputDecoration(
-            icon: Icon(Icons.list),
-            border: InputBorder.none,
-          ),
-        );
-      },
+    final entriesNumber = context
+        .select((ManageDeckCubit cubit) => cubit.state.deck.entries.length);
+    return TextField(
+      key: const Key('manageDeckPage_entriesNumber_textField'),
+      enabled: false,
+      controller: TextEditingController(
+          text: entriesNumber == 1 ? '1 entry' : '$entriesNumber entries'),
+      decoration: const InputDecoration(
+        icon: Icon(Icons.list),
+        border: InputBorder.none,
+      ),
     );
   }
 }
