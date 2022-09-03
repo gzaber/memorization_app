@@ -22,11 +22,6 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test --coverage
-      - run: ls
-      - name: Exclude generated files
-        uses: VeryGoodOpenSource/very_good_coverage@v1.2.1
-        with:
-          exclude: "*.g.dart"
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v3
         with:
