@@ -1,7 +1,5 @@
 coverage/
 
-/android/
-/ios/
 /web/
 /windows/
 # Miscellaneous
