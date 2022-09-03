@@ -1,0 +1,32 @@
+name: settings_repository
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  flutter_test:
+    defaults:
+      run:
+        working-directory: packages/settings_repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v2
+        with:
+          distribution: "zulu"
+          java-version: "11"
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test --coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v1
+        with:
+          exclude: "**/*.g.dart"
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          name: settings_repository
