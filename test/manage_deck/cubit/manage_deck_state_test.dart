@@ -4,24 +4,17 @@ import 'package:memorization_app/manage_deck/manage_deck.dart';
 
 void main() {
   group('ManageDeckState', () {
-    ManageDeckState createState({
-      ManageDeckStatus status = ManageDeckStatus.initial,
-      int? deckIndex,
-      Deck deck = const Deck(name: ''),
-    }) =>
-        ManageDeckState(status: status, deckIndex: deckIndex, deck: deck);
-
     test('constructor works properly', () {
-      expect(() => createState(), returnsNormally);
+      expect(() => const ManageDeckState(), returnsNormally);
     });
 
     test('supports value equality', () {
-      expect(createState(), equals(createState()));
+      expect(const ManageDeckState(), equals(const ManageDeckState()));
     });
 
     test('props are correct', () {
       expect(
-        createState().props,
+        const ManageDeckState().props,
         equals([ManageDeckStatus.initial, null, const Deck(name: '')]),
       );
     });
@@ -29,30 +22,31 @@ void main() {
     group('copyWith', () {
       test('returns the same object if no arguments are provided', () {
         expect(
-          createState().copyWith(),
-          equals(createState()),
+          const ManageDeckState().copyWith(),
+          equals(const ManageDeckState()),
         );
       });
 
       test('retains old parameter value if null is provided', () {
         expect(
-          createState().copyWith(status: null, deckIndex: null, deck: null),
-          equals(createState()),
+          const ManageDeckState()
+              .copyWith(status: null, deckIndex: null, deck: null),
+          equals(const ManageDeckState()),
         );
       });
 
       test('replaces non-null parameters', () {
         expect(
-          createState().copyWith(
+          const ManageDeckState().copyWith(
             status: ManageDeckStatus.failure,
             deckIndex: 1,
             deck: const Deck(name: 'name'),
           ),
           equals(
-            createState(
+            const ManageDeckState(
               status: ManageDeckStatus.failure,
               deckIndex: 1,
-              deck: const Deck(name: 'name'),
+              deck: Deck(name: 'name'),
             ),
           ),
         );

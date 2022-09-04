@@ -32,7 +32,12 @@ void main() {
 
     group('constructor', () {
       test('works properly', () {
-        expect(() => manageDeckCubit, returnsNormally);
+        expect(
+            () => ManageDeckCubit(
+                  csvRepository: csvRepository,
+                  decksRepository: decksRepository,
+                ),
+            returnsNormally);
       });
 
       test('initial state is correct', () {

@@ -11,14 +11,15 @@ class FakeSettings extends Mock implements Settings {}
 void main() {
   group('SettingsCubit', () {
     late SettingsRepository settingsRepository;
+    late SettingsCubit settingsCubit;
+
     const defaultSettings = Settings();
     const storedSettings =
         Settings(appTheme: AppTheme.dark, appFontSize: AppFontSize.large);
 
-    SettingsCubit createCubit() => SettingsCubit(settingsRepository);
-
     setUp(() {
       settingsRepository = MockSettingsRepository();
+      settingsCubit = SettingsCubit(settingsRepository);
     });
 
     setUpAll(() {
@@ -27,11 +28,11 @@ void main() {
 
     group('constructor', () {
       test('works properly', () {
-        expect(() => createCubit(), returnsNormally);
+        expect(() => SettingsCubit(settingsRepository), returnsNormally);
       });
 
       test('initial state is correct', () {
-        expect(createCubit().state, defaultSettings);
+        expect(settingsCubit.state, defaultSettings);
       });
     });
 
@@ -41,7 +42,7 @@ void main() {
         setUp: () {
           when(() => settingsRepository.read()).thenReturn(storedSettings);
         },
-        build: () => createCubit(),
+        build: () => settingsCubit,
         act: (cubit) => cubit.readSettings(),
         expect: () => [storedSettings],
         verify: (_) {
@@ -55,7 +56,7 @@ void main() {
           when(() => settingsRepository.read()).thenReturn(null);
           when(() => settingsRepository.create()).thenAnswer((_) async {});
         },
-        build: () => createCubit(),
+        build: () => settingsCubit,
         act: (cubit) => cubit.readSettings(),
         expect: () => [defaultSettings],
         verify: (_) {
@@ -69,7 +70,7 @@ void main() {
         setUp: () {
           when(() => settingsRepository.read()).thenThrow(Exception('failure'));
         },
-        build: () => createCubit(),
+        build: () => settingsCubit,
         act: (cubit) => cubit.readSettings(),
         expect: () => [defaultSettings],
         verify: (_) {
@@ -83,7 +84,7 @@ void main() {
           when(() => settingsRepository.create())
               .thenThrow(Exception('failure'));
         },
-        build: () => createCubit(),
+        build: () => settingsCubit,
         act: (cubit) => cubit.readSettings(),
         expect: () => [defaultSettings],
         verify: (_) {
@@ -98,7 +99,7 @@ void main() {
         setUp: () {
           when(() => settingsRepository.update(any())).thenAnswer((_) async {});
         },
-        build: () => createCubit(),
+        build: () => settingsCubit,
         act: (cubit) => cubit.updateAppTheme(AppTheme.dark),
         expect: () => [defaultSettings.copyWith(appTheme: AppTheme.dark)],
         verify: (_) {
@@ -113,7 +114,7 @@ void main() {
           when(() => settingsRepository.update(any()))
               .thenThrow(Exception('failure'));
         },
-        build: () => createCubit(),
+        build: () => settingsCubit,
         act: (cubit) => cubit.updateAppTheme(AppTheme.dark),
         expect: () => [defaultSettings],
         verify: (_) {
@@ -129,7 +130,7 @@ void main() {
         setUp: () {
           when(() => settingsRepository.update(any())).thenAnswer((_) async {});
         },
-        build: () => createCubit(),
+        build: () => settingsCubit,
         act: (cubit) => cubit.updateAppFontSize(AppFontSize.large),
         expect: () =>
             [defaultSettings.copyWith(appFontSize: AppFontSize.large)],
@@ -146,7 +147,7 @@ void main() {
           when(() => settingsRepository.update(any()))
               .thenThrow(Exception('failure'));
         },
-        build: () => createCubit(),
+        build: () => settingsCubit,
         act: (cubit) => cubit.updateAppFontSize(AppFontSize.large),
         expect: () => [defaultSettings],
         verify: (_) {
