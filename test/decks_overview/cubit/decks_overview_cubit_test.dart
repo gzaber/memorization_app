@@ -50,7 +50,7 @@ void main() {
       );
 
       blocTest<DecksOverviewCubit, DecksOverviewState>(
-        'emits state with failure status when exception occured',
+        'emits state with failure status when exception occurs',
         setUp: () {
           when(() => decksRepository.readAll()).thenThrow(Exception());
         },

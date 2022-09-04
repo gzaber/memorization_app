@@ -134,7 +134,7 @@ void main() {
       expect(find.byType(DeckPage), findsOneWidget);
     });
 
-    testWidgets('renders CircularProgressIndicator when data is loading',
+    testWidgets('renders CircularProgressIndicator when loading data',
         (tester) async {
       when(() => deckCubit.state).thenReturn(
           const DeckState(status: DeckStatus.loading, deckIndex: 0));
@@ -145,7 +145,7 @@ void main() {
     });
 
     testWidgets(
-        'renders entries with horizontal layout when data loaded successfully',
+        'renders entries with horizontal layout when data successfully loaded',
         (tester) async {
       when(() => deckCubit.state).thenReturn(DeckState(
           status: DeckStatus.loadSuccess,
@@ -162,7 +162,7 @@ void main() {
     });
 
     testWidgets(
-        'renders entries with expansion layout when data loaded successfully',
+        'renders entries with expansion layout when data successfully loaded',
         (tester) async {
       when(() => deckCubit.state).thenReturn(DeckState(
           status: DeckStatus.loadSuccess,
@@ -211,7 +211,7 @@ void main() {
       );
     });
 
-    testWidgets('pops when successfully deleted', (tester) async {
+    testWidgets('pops when deck successfully deleted', (tester) async {
       final navigator = MockNavigator();
       when(() => navigator.pop()).thenAnswer((_) async {});
       when(() => deckCubit.state).thenReturn(const DeckState(

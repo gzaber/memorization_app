@@ -63,7 +63,7 @@ void main() {
       verify(() => manageDeckCubit.onColorChanged(0xffea80fc)).called(1);
     });
 
-    testWidgets('shows AlertDialog when csv input is tapped', (tester) async {
+    testWidgets('shows AlertDialog when CSV input is tapped', (tester) async {
       when(() => manageDeckCubit.state).thenReturn(const ManageDeckState());
 
       await tester.pumpManageDeckForm(manageDeckCubit: manageDeckCubit);
@@ -74,8 +74,7 @@ void main() {
       expect(find.byType(AlertDialog), findsOneWidget);
     });
 
-    testWidgets(
-        'invokes cubit methods when AlertDialog download button is tapped',
+    testWidgets('invokes cubit methods when download button is tapped',
         (tester) async {
       when(() => manageDeckCubit.state).thenReturn(const ManageDeckState());
       when(() => manageDeckCubit.readCsv()).thenAnswer((_) async => {});
@@ -94,8 +93,7 @@ void main() {
       verify(() => manageDeckCubit.readCsv()).called(1);
     });
 
-    testWidgets(
-        'does not invoke cubit method when AlertDialog cancel button is tapped',
+    testWidgets('does not invoke cubit method when cancel button is tapped',
         (tester) async {
       when(() => manageDeckCubit.state).thenReturn(const ManageDeckState());
       when(() => manageDeckCubit.readCsv()).thenAnswer((_) async => {});
@@ -140,7 +138,7 @@ void main() {
       expect(textField.controller!.text, equals(l10n.entriesNumber(2)));
     });
 
-    testWidgets('shows SnackBar with message when exception occured ',
+    testWidgets('shows SnackBar with message when exception occurs',
         (tester) async {
       when(() => manageDeckCubit.state).thenReturn(
           const ManageDeckState(status: ManageDeckStatus.csvLoading));

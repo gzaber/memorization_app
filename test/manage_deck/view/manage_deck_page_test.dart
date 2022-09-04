@@ -192,7 +192,7 @@ void main() {
     });
 
     testWidgets(
-        'renders CircularProgressIndicator in place save icon when saving deck',
+        'renders CircularProgressIndicator instead of save icon when saving deck',
         (tester) async {
       const deck = Deck(name: 'deck');
       when(() => manageDeckCubit.state).thenReturn(const ManageDeckState(
@@ -222,7 +222,7 @@ void main() {
       verify(() => navigator.pop()).called(1);
     });
 
-    testWidgets('shows SnackBar when exception occured', (tester) async {
+    testWidgets('shows SnackBar when exception occurs', (tester) async {
       when(() => manageDeckCubit.state)
           .thenReturn(const ManageDeckState(status: ManageDeckStatus.loading));
       whenListen(

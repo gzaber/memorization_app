@@ -64,7 +64,7 @@ void main() {
     group('onUrlChanged', () {
       const deck = Deck(name: 'name', url: '');
       blocTest<ManageDeckCubit, ManageDeckState>(
-        'emits state with updated csv document url',
+        'emits state with updated CSV document url',
         build: () => manageDeckCubit,
         seed: () => const ManageDeckState(deckIndex: 0, deck: deck),
         act: (cubit) => cubit.onUrlChanged('url'),
@@ -117,7 +117,7 @@ void main() {
     group('readDeck', () {
       const deck = Deck(name: 'name');
       blocTest<ManageDeckCubit, ManageDeckState>(
-        'emits initial state state when deck index is null',
+        'emits initial state when deck index is null',
         build: () => manageDeckCubit,
         act: (cubit) => cubit.readDeck(),
         expect: () => [const ManageDeckState()],
@@ -294,7 +294,7 @@ void main() {
       );
 
       blocTest<ManageDeckCubit, ManageDeckState>(
-        'emits state with csv failure when exception occured',
+        'emits state with CSV failure when exception occurs',
         setUp: () {
           when(() => csvRepository.fetchData(any())).thenThrow(Exception());
         },

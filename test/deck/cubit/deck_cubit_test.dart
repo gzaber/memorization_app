@@ -113,7 +113,7 @@ void main() {
       );
 
       blocTest<DeckCubit, DeckState>(
-        'emits state with failure when exception occurs',
+        'emits state with failure status when exception occurs',
         setUp: () {
           when(() => decksRepository.update(any(), any()))
               .thenThrow(Exception());

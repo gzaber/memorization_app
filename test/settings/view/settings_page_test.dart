@@ -131,7 +131,7 @@ void main() {
       expect(radioLarge.checked, false);
     });
 
-    testWidgets('updates settings when dark theme radio tapped',
+    testWidgets('updates settings when dark theme radio is tapped',
         (tester) async {
       when(() => settingsCubit.state)
           .thenReturn(const Settings(appTheme: AppTheme.light));
@@ -146,7 +146,7 @@ void main() {
       verify(() => settingsCubit.updateAppTheme(AppTheme.dark)).called(1);
     });
 
-    testWidgets('updates settings when light theme radio tapped',
+    testWidgets('updates settings when light theme radio is tapped',
         (tester) async {
       when(() => settingsCubit.state)
           .thenReturn(const Settings(appTheme: AppTheme.dark));
@@ -162,7 +162,7 @@ void main() {
       verify(() => settingsCubit.updateAppTheme(AppTheme.light)).called(1);
     });
 
-    testWidgets('updates settings when medium font radio tapped',
+    testWidgets('updates settings when medium font radio is tapped',
         (tester) async {
       when(() => settingsCubit.state)
           .thenReturn(const Settings(appFontSize: AppFontSize.small));
@@ -179,7 +179,7 @@ void main() {
           .called(1);
     });
 
-    testWidgets('updates settings when large font radio tapped',
+    testWidgets('updates settings when large font radio is tapped',
         (tester) async {
       when(() => settingsCubit.state)
           .thenReturn(const Settings(appFontSize: AppFontSize.small));
@@ -196,7 +196,7 @@ void main() {
           .called(1);
     });
 
-    testWidgets('updates settings when small font radio tapped',
+    testWidgets('updates settings when small font radio is tapped',
         (tester) async {
       when(() => settingsCubit.state)
           .thenReturn(const Settings(appFontSize: AppFontSize.medium));

@@ -92,7 +92,7 @@ void main() {
       when(() => navigator.push<void>(any())).thenAnswer((_) async {});
     });
 
-    testWidgets('renders CircularProgressIndicator when data is loading',
+    testWidgets('renders CircularProgressIndicator when loading data',
         (tester) async {
       when(() => decksOverviewCubit.state).thenReturn(
           const DecksOverviewState(status: DecksOverviewStatus.loading));
@@ -103,7 +103,7 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('renders deck cards when data is loaded successfully',
+    testWidgets('renders deck cards when data successfully loaded',
         (tester) async {
       when(() => decksOverviewCubit.state).thenReturn(
         const DecksOverviewState(
