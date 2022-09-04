@@ -44,7 +44,7 @@ void main() {
         ['title2', 'content2'],
       ];
 
-      test('fetches csv data', () async {
+      test('fetches CSV data', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
         when(() => response.body).thenReturn(csvString);
@@ -77,7 +77,7 @@ void main() {
         );
       });
 
-      test('throws NoDataFailure when csv file is empty', () {
+      test('throws NoDataFailure when CSV file is empty', () {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
         when(() => response.body).thenReturn('');
@@ -89,7 +89,7 @@ void main() {
         );
       });
 
-      test('throws WrongFormatFailure when csv data format is wrong', () {
+      test('throws WrongFormatFailure when CSV data format is wrong', () {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
         when(() => response.body).thenReturn('aa,bb,cc');
