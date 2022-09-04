@@ -86,10 +86,7 @@ void main() {
 
     testWidgets('has correct theme and font size', (tester) async {
       when(() => settingsCubit.state).thenReturn(
-        const Settings(
-          appTheme: AppTheme.dark,
-          appFontSize: AppFontSize.small,
-        ),
+        const Settings(appTheme: AppTheme.dark, appFontSize: AppFontSize.small),
       );
 
       await tester.pumpAppView(

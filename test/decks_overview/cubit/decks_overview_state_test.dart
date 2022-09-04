@@ -4,25 +4,17 @@ import 'package:memorization_app/decks_overview/decks_overview.dart';
 
 void main() {
   group('DecksOverviewState', () {
-    const deck = Deck(name: 'name');
-
-    DecksOverviewState createState({
-      DecksOverviewStatus status = DecksOverviewStatus.loading,
-      List<Deck> decks = const [],
-    }) =>
-        DecksOverviewState(status: status, decks: decks);
-
     test('constructor works properly', () {
-      expect(() => createState(), returnsNormally);
+      expect(() => const DecksOverviewState(), returnsNormally);
     });
 
     test('supports value equality', () {
-      expect(createState(), equals(createState()));
+      expect(const DecksOverviewState(), equals(const DecksOverviewState()));
     });
 
     test('props are correct', () {
       expect(
-        createState().props,
+        const DecksOverviewState().props,
         equals([DecksOverviewStatus.loading, []]),
       );
     });
@@ -30,24 +22,25 @@ void main() {
     group('copyWith', () {
       test('returns the same object if no arguments are provided', () {
         expect(
-          createState().copyWith(),
-          equals(createState()),
+          const DecksOverviewState().copyWith(),
+          equals(const DecksOverviewState()),
         );
       });
 
       test('retains old parameter value if null is provided', () {
         expect(
-          createState().copyWith(status: null, decks: null),
-          equals(createState()),
+          const DecksOverviewState().copyWith(status: null, decks: null),
+          equals(const DecksOverviewState()),
         );
       });
 
       test('replaces non-null parameters', () {
+        const deck = Deck(name: 'name');
         expect(
-          createState()
+          const DecksOverviewState()
               .copyWith(status: DecksOverviewStatus.failure, decks: [deck]),
-          equals(
-              createState(status: DecksOverviewStatus.failure, decks: [deck])),
+          equals(const DecksOverviewState(
+              status: DecksOverviewStatus.failure, decks: [deck])),
         );
       });
     });

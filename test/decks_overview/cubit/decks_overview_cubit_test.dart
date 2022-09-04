@@ -9,21 +9,23 @@ class MockDecksRepository extends Mock implements DecksRepository {}
 void main() {
   group('DecksOverviewCubit', () {
     late DecksRepository decksRepository;
+    late DecksOverviewCubit decksOverviewCubit;
 
     setUp(() {
       decksRepository = MockDecksRepository();
+      decksOverviewCubit = DecksOverviewCubit(decksRepository: decksRepository);
     });
-
-    DecksOverviewCubit createCubit() =>
-        DecksOverviewCubit(decksRepository: decksRepository);
 
     group('constructor', () {
       test('works properly', () {
-        expect(() => createCubit(), returnsNormally);
+        expect(
+          () => DecksOverviewCubit(decksRepository: decksRepository),
+          returnsNormally,
+        );
       });
 
       test('initial state is correct', () {
-        expect(createCubit().state, equals(const DecksOverviewState()));
+        expect(decksOverviewCubit.state, equals(const DecksOverviewState()));
       });
     });
 
@@ -35,7 +37,7 @@ void main() {
         setUp: () {
           when(() => decksRepository.readAll()).thenAnswer((_) => [deck]);
         },
-        build: () => createCubit(),
+        build: () => decksOverviewCubit,
         act: (cubit) => cubit.readAllDecks(),
         expect: () => [
           const DecksOverviewState(status: DecksOverviewStatus.loading),
@@ -52,7 +54,7 @@ void main() {
         setUp: () {
           when(() => decksRepository.readAll()).thenThrow(Exception());
         },
-        build: () => createCubit(),
+        build: () => decksOverviewCubit,
         act: (cubit) => cubit.readAllDecks(),
         expect: () => [
           const DecksOverviewState(status: DecksOverviewStatus.loading),

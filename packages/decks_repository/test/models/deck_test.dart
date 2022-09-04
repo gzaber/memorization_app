@@ -3,62 +3,48 @@ import 'package:test/test.dart';
 
 void main() {
   group('Deck', () {
-    Deck createDeck({
-      String name = 'name',
-      String url = '',
-      int color = 0xffff8a80,
-      List<Entry> entries = const [],
-      EntryLayout entryLayout = EntryLayout.horizontal,
-    }) {
-      return Deck(
-        name: name,
-        url: url,
-        color: color,
-        entries: entries,
-        entryLayout: entryLayout,
-      );
-    }
+    final name = 'name';
 
     group('constructor', () {
       test('works properly', () {
-        expect(() => createDeck(), returnsNormally);
+        expect(() => Deck(name: name), returnsNormally);
       });
     });
 
     test('supports value equality', () {
-      expect(createDeck(), equals(createDeck()));
+      expect(Deck(name: name), equals(Deck(name: name)));
     });
 
     test('props are correct', () {
       expect(
-        createDeck().props,
-        equals(['name', '', 0xffff8a80, [], EntryLayout.horizontal]),
+        Deck(name: name).props,
+        equals([name, '', 0xffff8a80, [], EntryLayout.horizontal]),
       );
     });
 
     group('copyWith', () {
       test('returns the same object if no arguments are provided', () {
         expect(
-          createDeck().copyWith(),
-          equals(createDeck()),
+          Deck(name: name).copyWith(),
+          equals(Deck(name: name)),
         );
       });
 
       test('retains old parameter value if null is provided', () {
         expect(
-          createDeck().copyWith(
+          Deck(name: name).copyWith(
               name: null,
               url: null,
               color: null,
               entries: null,
               entryLayout: null),
-          equals(createDeck()),
+          equals(Deck(name: name)),
         );
       });
 
       test('replaces non-null parameters', () {
         expect(
-          createDeck().copyWith(
+          Deck(name: name).copyWith(
             name: 'deckName',
             url: 'url',
             color: 0xdddd8b40,
@@ -66,7 +52,7 @@ void main() {
             entryLayout: EntryLayout.expansion,
           ),
           equals(
-            createDeck(
+            Deck(
               name: 'deckName',
               url: 'url',
               color: 0xdddd8b40,
@@ -80,11 +66,12 @@ void main() {
   });
 
   group('Entry', () {
-    Entry createEntry() => Entry(title: 'title', content: 'content');
+    final title = 'title';
+    final content = 'content';
     group('constructor', () {
       test('works properly', () {
         expect(
-          () => createEntry(),
+          () => Entry(title: title, content: content),
           returnsNormally,
         );
       });
@@ -92,14 +79,14 @@ void main() {
 
     test('supports value equality', () {
       expect(
-        createEntry(),
-        equals(createEntry()),
+        Entry(title: title, content: content),
+        equals(Entry(title: title, content: content)),
       );
     });
 
     test('props are correct', () {
       expect(
-        createEntry().props,
+        Entry(title: title, content: content).props,
         equals(['title', 'content']),
       );
     });

@@ -24,7 +24,10 @@ void main() {
 
     group('constructor', () {
       test('works properly', () {
-        expect(() => deckCubit, returnsNormally);
+        expect(
+          () => DeckCubit(decksRepository: decksRepository, deckIndex: 0),
+          returnsNormally,
+        );
       });
 
       test('initial state is correct', () {
