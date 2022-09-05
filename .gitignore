@@ -1,7 +1,5 @@
 coverage/
 
-/web/
-/windows/
 # Miscellaneous
 *.class
 *.log
