@@ -1,6 +1,6 @@
 name: memorization_app
 description: An app supporting memorization.
-publish_to: "none"
+publish_to: none
 version: 1.0.0+1
 
 environment:
