@@ -34,7 +34,8 @@ Learning materials can be downloaded from the Google Sheets files published on t
 ## Features
 
 - create, update, delete deck
-- different entry layouts
+- download entries from GoogleSheets
+- different layouts for entries
 - light / dark theme
 - different font sizes
 - supported locales: en, pl
