@@ -1,4 +1,4 @@
-<a href="https://github.com/gzaber/memorization_app/actions"><img src="https://img.shields.io/github/workflow/status/gzaber/memorization_app/main" alt="build"></a>
+<a href="https://github.com/gzaber/memorization_app/actions"><img src="https://img.shields.io/github/actions/workflow/status/gzaber/memorization_app/main.yaml" alt="build"></a>
 <a href="https://codecov.io/gh/gzaber/memorization_app"><img src="https://codecov.io/gh/gzaber/memorization_app/branch/master/graph/badge.svg" alt="codecov"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/gzaber/memorization_app" alt="license MIT"></a>
 
