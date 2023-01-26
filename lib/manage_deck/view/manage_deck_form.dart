@@ -14,13 +14,13 @@ class ManageDeckForm extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(l10n.deckName, style: Theme.of(context).textTheme.headline5),
+          Text(l10n.deckName, style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 10),
           const _DeckNameInput(),
           const SizedBox(height: 20),
           Text(
             l10n.color,
-            style: Theme.of(context).textTheme.headline5,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
           const SizedBox(height: 10),
           DeckColorPicker(
@@ -32,7 +32,7 @@ class ManageDeckForm extends StatelessWidget {
           const SizedBox(height: 20),
           Text(
             l10n.csvDocumentLink,
-            style: Theme.of(context).textTheme.headline5,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
           const SizedBox(height: 10),
           const _CsvLinkInput(),

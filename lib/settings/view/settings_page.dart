@@ -39,7 +39,7 @@ class SettingsPage extends StatelessWidget {
             children: [
               Text(
                 l10n.theme,
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               RadioListTile<AppTheme>(
                 key: const Key('settingsPage_lightTheme_radioListTile'),
@@ -61,7 +61,7 @@ class SettingsPage extends StatelessWidget {
               ),
               Text(
                 l10n.fontSize,
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               RadioListTile<AppFontSize>(
                 key: const Key('settingsPage_smallFont_radioListTile'),
