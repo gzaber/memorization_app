@@ -18,18 +18,17 @@ Learning materials can be downloaded from the Google Sheets files published on t
 
 ## Screenshots
 
-[<img alt="Decks overview" width="200px" src=".screenshots/decks_overview.png" />](.screenshots/decks_overview.png)
-[<img alt="Create deck" width="200px" src=".screenshots/manage_deck_create.png" />](.screenshots/manage_deck_create.png)
-[<img alt="CSV link dialog" width="200px" src=".screenshots/manage_deck_csv_link_dialog.png" />](.screenshots/manage_deck_csv_link_dialog.png)
-[<img alt="Horizontal layout" width="200px" src=".screenshots/deck_horizontal_layout.png" />](.screenshots/deck_horizontal_layout.png)
-[<img alt="Menu items" width="200px" src=".screenshots/deck_menu.png" />](.screenshots/deck_menu.png)
-[<img alt="Entry layout dialog" width="200px" src=".screenshots/deck_entry_layout_dialog.png" />](.screenshots/deck_entry_layout_dialog.png)
-[<img alt="Expand / collapse layout" width="200px" src=".screenshots/deck_expand_collapse_layout.png" />](.screenshots/deck_expand_collapse_layout.png)
-[<img alt="Update deck" width="200px" src=".screenshots/manage_deck_update.png" />](.screenshots/manage_deck_update.png)
-[<img alt="Delete deck" width="200px" src=".screenshots/deck_delete.png" />](.screenshots/deck_delete.png)
-[<img alt="Settings" width="200px" src=".screenshots/settings.png" />](.screenshots/settings.png)
-[<img alt="Settings dark theme" width="200px" src=".screenshots/settings_dark.png" />](.screenshots/settings_dark.png)
-[<img alt="Decks overview dark theme" width="200px" src=".screenshots/decks_overview_dark.png" />](.screenshots/decks_overview_dark.png)
+[<img alt="decks overview page" width="250px" src=".screenshots/decks_overview_page.png" />](.screenshots/decks_overview_page.png)
+&nbsp;
+[<img alt="deck page" width="250px" src=".screenshots/deck_page.png" />](.screenshots/deck_page.png)
+&nbsp;
+[<img alt="manage deck page" width="250px" src=".screenshots/manage_deck_page.png" />](.screenshots/manage_deck_page.png)
+
+[<img alt="manage deck recording" width="250px" src=".screenshots/manage_deck_recording.gif" />](.screenshots/manage_deck_recording.gif)
+&nbsp;
+[<img alt="deck recording" width="250px" src=".screenshots/deck_recording.gif" />](.screenshots/deck_recording.gif)
+&nbsp;
+[<img alt="settings recording" width="250px" src=".screenshots/settings_recording.gif" />](.screenshots/settings_recording.gif)
 
 ## Features
 
@@ -42,7 +41,6 @@ Learning materials can be downloaded from the Google Sheets files published on t
 
 ## Packages used
 
-- equatable
 - bloc
 - csv
 - hive
@@ -65,7 +63,12 @@ Run the tests using your IDE or using the following command:
 $ flutter test --coverage
 ```
 
-For local packages run above command in package root directory.
+For local Dart packages run the following commands in the package root directory:
+
+```
+$ dart pub global activate coverage
+$ dart pub global run coverage:test_with_coverage
+```
 
 ## Run
 
