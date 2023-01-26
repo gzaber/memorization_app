@@ -11,7 +11,7 @@ class AppThemeData {
 
     return baseTheme.copyWith(
       textTheme: TextTheme(
-        headline5: baseTheme.textTheme.headline5!.copyWith(
+        headlineSmall: baseTheme.textTheme.headlineSmall!.copyWith(
           fontSize: appFontSize == AppFontSize.small
               ? 22
               : appFontSize == AppFontSize.medium
@@ -19,7 +19,7 @@ class AppThemeData {
                   : 28,
           fontWeight: FontWeight.w300,
         ),
-        headline6: baseTheme.textTheme.headline6!.copyWith(
+        titleLarge: baseTheme.textTheme.titleLarge!.copyWith(
           fontSize: appFontSize == AppFontSize.small
               ? 18
               : appFontSize == AppFontSize.medium
@@ -27,21 +27,21 @@ class AppThemeData {
                   : 24,
           fontWeight: FontWeight.w400,
         ),
-        button: baseTheme.textTheme.button!.copyWith(
+        labelLarge: baseTheme.textTheme.labelLarge!.copyWith(
           fontSize: appFontSize == AppFontSize.small
               ? 12
               : appFontSize == AppFontSize.medium
                   ? 14
                   : 18,
         ),
-        subtitle1: baseTheme.textTheme.subtitle1!.copyWith(
+        titleMedium: baseTheme.textTheme.titleMedium!.copyWith(
           fontSize: appFontSize == AppFontSize.small
               ? 14
               : appFontSize == AppFontSize.medium
                   ? 16
                   : 20,
         ),
-        bodyText2: baseTheme.textTheme.bodyText2!.copyWith(
+        bodyMedium: baseTheme.textTheme.bodyMedium!.copyWith(
           fontSize: appFontSize == AppFontSize.small
               ? 12
               : appFontSize == AppFontSize.medium
